@@ -166,7 +166,69 @@ namespace ClinicManagementSystem
 
                     case 2: // second case for doctors
 
-                  
+                        bool doctorMenu = true;
+
+                        while (doctorMenu)
+                        {
+
+
+                            Console.WriteLine("===== DOCTOR MANAGEMENT =====");
+                            Console.WriteLine("1) Add Doctor");
+                            Console.WriteLine("2) Display Doctor");
+                            Console.WriteLine("0) Back To Main Menu");
+                            Console.Write("Enter your choice: ");
+
+                            int doctorChoice = int.Parse(Console.ReadLine());
+
+                            switch (doctorChoice)
+                            {
+                                case 1:
+                                    if (doctorCount == MAX_DOCTORS)
+                                    {
+                                        Console.WriteLine("Doctor list is full.");
+                                    }
+                                    else
+                                    {
+                                        Console.Write("Enter doctor name: ");
+                                        doctorName = Console.ReadLine();
+
+                                        Console.Write("Enter doctor specialization: ");
+                                        doctorSpec = Console.ReadLine();
+
+                                        doctorCount++;
+
+                                        Console.WriteLine("Doctor added successfully.");
+                                    }
+
+
+                                    break;
+
+                                case 2:
+                                    if (doctorCount == 0)
+                                    {
+                                        Console.WriteLine("No doctor added yet.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("===== DOCTOR INFORMATION =====");
+                                        Console.WriteLine("Doctor Name: " + doctorName);
+                                        Console.WriteLine("Specialization: " + doctorSpec);
+                                    }
+
+                                    break;
+
+                                case 0:
+                                    doctorMenu = false;
+                                    break;
+
+                                default:
+                                    Console.WriteLine("Invalid doctor choice.");
+                                    break;
+                            }
+                        }
+
+                        break;
+
 
                     case 3: // appointments
 
