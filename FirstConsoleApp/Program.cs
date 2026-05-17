@@ -232,7 +232,81 @@ namespace ClinicManagementSystem
 
                     case 3: // appointments
 
-                     
+
+
+                        bool appointmentMenu = true;
+
+                        while (appointmentMenu)
+                        {
+
+
+                            Console.WriteLine("===== APPOINTMENT MANAGEMENT =====");
+                            Console.WriteLine("1) Book Appointment");
+                            Console.WriteLine("2) View Appointment");
+                            Console.WriteLine("0) Back To Main Menu");
+                            Console.Write("Enter your choice: ");
+
+                            int appointmentChoice = int.Parse(Console.ReadLine());
+
+                            switch (appointmentChoice)
+                            {
+                                case 1:
+                                    if (patientCount == 0)
+                                    {
+                                        Console.WriteLine("Please add patient first");
+                                    }
+                                    else if (doctorCount == 0)
+                                    {
+                                        Console.WriteLine("Please add doctor first");
+                                    }
+                                    else // add appointment 
+                                    {
+                                        Console.Write("Enter appointment date: ");
+                                        appointmentDate = Console.ReadLine();
+
+                                        Console.Write("Enter appointment time: ");
+                                        appointmentTime = Console.ReadLine();
+
+                                        appointmentBooked = true;
+
+                                        Console.WriteLine("Appointment booked successfully.");
+                                    }
+
+                                    break;
+
+                                case 2:
+                                    if (appointmentBooked == false)
+                                    {
+                                        Console.WriteLine("No appointment booked yet.");
+                                    }
+                                    else //if  there is appointment ,display appointment info
+                                    {
+                                        Console.WriteLine("===== APPOINTMENT INFORMATION =====");
+                                        Console.WriteLine("Patient Name: " + patientName);
+                                        Console.WriteLine("Doctor Name: " + doctorName);
+                                        Console.WriteLine("Date: " + appointmentDate);
+                                        Console.WriteLine("Time: " + appointmentTime);
+                                    }
+
+                                    break;
+
+                                case 0:
+                                    appointmentMenu = false;
+                                    break;
+
+                                default:
+                                    Console.WriteLine("Invalid appointment choice.");
+
+                                    break;
+                            }
+                        }
+
+                        break;
+
+
+
+
+
                     case 0:
                         Console.WriteLine("Thank you for using Clinic Management System.");
                         break;
