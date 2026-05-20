@@ -40,6 +40,38 @@
             Console.WriteLine("14) Exit");
 
         }
+        //first case regestration function 
+        static void RegisterMember()
+        {
+            if (memberRegistered)
+            {
+                Console.WriteLine("Error: A member is already registered.");
+                return;
+            }
+
+            Console.Write("Enter member name: ");
+            memberName = Console.ReadLine().Trim();
+
+            Console.Write("Enter member email: ");
+            memberEmail = Console.ReadLine().Trim();
+
+            Console.Write("Enter membership expiry date yyyy-MM-dd: ");
+            membershipExpiryDate = Console.ReadLine().Trim();
+
+            Console.Write("Enter member tier Standard/Premium: ");
+            memberTier = Console.ReadLine().Trim();
+
+            //string timeText = DateTime.Now.ToString("yyyyMMddHHmmss");
+           
+
+            Console.Write("Enter member ID: ");
+            memberId = Console.ReadLine().Trim();
+
+            Console.WriteLine("Member registered successfully.");
+            
+        }
+
+
 
         static void Main(string[] args)
         {
@@ -56,7 +88,7 @@
                 switch (Mainchoice)
                 {
                     case 0://registration
-
+                        RegisterMember();
                         break;
 
                     case 1:// profile display
