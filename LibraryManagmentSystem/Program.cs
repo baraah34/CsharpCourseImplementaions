@@ -44,48 +44,41 @@
 
                         break;
 
-                    case 5:
+                    case 5://Calculate Late Fine
 
                         break;
 
-                    case 6:
+                    case 6://Apply Member Discount
 
                         break;
 
-                    case 7:
+                    case 7://Check Borrowing Eligibility
 
                         break;
 
-                    case 8:
+                    case 8://Register Book
 
                         break;
 
-                    case 9:
+                    case 9://Generate Member ID
 
                         break;
 
-                    case 10:
+                    case 10://Display Book Details
 
                         break;
 
-                    case 11:
+                    case 11://Calculate Renewal Fee
 
                         break;
 
-                    case 12:
+                    case 12://Update Member Email
 
                         break;
 
-                    case 13:
+                    case 13://Session Summary
                         break;
 
-                    case 14:
-
-                        break;
-
-                    case 99:
-
-                        break;
 
                     default:
 
