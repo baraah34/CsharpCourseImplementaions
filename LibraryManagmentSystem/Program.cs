@@ -188,7 +188,34 @@
                         break;
 
                     case 8://Register Book
-                       
+                        if (IsRegistered)
+                        {
+                            Console.WriteLine("Book is already registered.");
+                            break;
+                        }
+
+                        Console.Write("Enter book title: ");
+                        string title = Console.ReadLine().Trim();
+
+                        Console.Write("Enter book author: ");
+                        string author = Console.ReadLine().Trim();
+
+                        Console.Write("Enter number of copies: ");
+                        int copies = int.Parse(Console.ReadLine());
+
+                        Console.Write("Enter book genre or press Enter to skip: ");
+                        string genre = Console.ReadLine().Trim();
+
+                        if (genre.Length == 0)
+                        {
+                            RegisterBook(title, author, copies);
+                        }
+                        else
+                        {
+                            RegisterBook(title, author, copies, genre);
+                        }
+
+                        break; 
 
                      
 
