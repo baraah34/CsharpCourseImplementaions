@@ -15,7 +15,7 @@
         static string bookGenre = "";
         static int availableCopies = 0;
         static int maxBookCopies = 0;
-        static bool bookRegistered = false;
+        static bool IsRegistered = false;
 
         static void mainMenu()
         {
@@ -45,33 +45,101 @@
         {
             if (memberRegistered)
             {
-                Console.WriteLine("Error: A member is already registered.");
+                Console.WriteLine("member is already registered.");
                 return;
             }
 
             Console.Write("Enter member name: ");
-            memberName = Console.ReadLine().Trim();
+            memberName = Console.ReadLine();
 
             Console.Write("Enter member email: ");
-            memberEmail = Console.ReadLine().Trim();
+            memberEmail = Console.ReadLine();
 
             Console.Write("Enter membership expiry date yyyy-MM-dd: ");
-            membershipExpiryDate = Console.ReadLine().Trim();
+            membershipExpiryDate = Console.ReadLine();
+            string registerTime = DateTime.Now.ToString("yyyyMMdd HHmmss");
+
+
 
             Console.Write("Enter member tier Standard/Premium: ");
-            memberTier = Console.ReadLine().Trim();
+            memberTier = Console.ReadLine();
 
-            //string timeText = DateTime.Now.ToString("yyyyMMddHHmmss");
            
 
-            Console.Write("Enter member ID: ");
-            memberId = Console.ReadLine().Trim();
 
+            Console.Write("Enter member ID: ");
+            memberId = Console.ReadLine();
+
+          
+
+            memberRegistered = true;
             Console.WriteLine("Member registered successfully.");
             
         }
+        // Displays member profile.
+        static void MemberProfile()
+        {
+            if (!memberRegistered)
+            {
+                Console.WriteLine("No member registered.");
+                return;
+            }
 
+            
 
+            Console.WriteLine("========================================");
+            Console.WriteLine(" MEMBER PROFILE");
+            Console.WriteLine("========================================");
+            Console.WriteLine("Name:".PadLeft(20) + " " + memberName);
+            Console.WriteLine("Member ID:".PadLeft(20) + " " + memberId);
+            Console.WriteLine("Email:".PadLeft(20) + " " + memberEmail);
+            Console.WriteLine("Expiry Date:".PadLeft(20) + " " + membershipExpiryDate);
+            Console.WriteLine("Tier:".PadLeft(20) + " " + memberTier);
+           
+        }
+
+        static void SearchBook()
+        {
+            if (IsRegistered == false)
+            {
+                Console.WriteLine("No book registered.");
+                return;
+            }
+
+            Console.Write("Enter keyword to search: ");
+            string keyword = Console.ReadLine().ToLower();
+
+            string title = bookTitle.ToLower();
+
+            if (title.Contains(keyword))
+            {
+                Console.WriteLine("Book found: " + bookTitle);
+            }
+            else
+            {
+                Console.WriteLine("Book not found.");
+            }
+        }
+
+        //book regestration
+        static void RegisterBook(string title, string author, int copies, string genre = "Uncategorized")
+        {
+            if (title.Length == 0 || author.Length == 0 || copies <= 0)// if empty
+            {
+                Console.WriteLine("Invalid book information.");
+                return;
+            }
+
+            bookTitle = title;
+            bookAuthor = author;
+            availableCopies = copies;
+            maxBookCopies = copies;
+            bookGenre = genre;
+
+            IsRegistered = true;
+
+            Console.WriteLine("Book registered successfully.");
+        }
 
         static void Main(string[] args)
         {
@@ -92,11 +160,11 @@
                         break;
 
                     case 1:// profile display
-
+                        MemberProfile();
                         break;
 
                     case 2://book search
-
+                        SearchBook();
                         break;
 
                     case 3://borrow book
@@ -120,8 +188,9 @@
                         break;
 
                     case 8://Register Book
+                       
 
-                        break;
+                     
 
                     case 9://Generate Member ID
 
