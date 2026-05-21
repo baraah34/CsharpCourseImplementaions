@@ -1,4 +1,6 @@
-﻿namespace LibraryManagmentSystem
+﻿using System;
+
+namespace LibraryManagmentSystem
 {
     internal class Program
     {
@@ -38,14 +40,15 @@
             Console.WriteLine("12) Update Member Email");
             Console.WriteLine("13) Session Summary");
             Console.WriteLine("14) Exit");
-
+            Console.WriteLine("========================================");
         }
-        //first case regestration function 
+
+        // first case registration function
         static void RegisterMember()
         {
             if (memberRegistered)
             {
-                Console.WriteLine("member is already registered.");
+                Console.WriteLine("Member is already registered.");
                 return;
             }
 
@@ -57,25 +60,18 @@
 
             Console.Write("Enter membership expiry date yyyy-MM-dd: ");
             membershipExpiryDate = Console.ReadLine();
-            string registerTime = DateTime.Now.ToString("yyyyMMdd HHmmss");
-
-
 
             Console.Write("Enter member tier Standard/Premium: ");
             memberTier = Console.ReadLine();
 
-           
-
-
             Console.Write("Enter member ID: ");
             memberId = Console.ReadLine();
 
-          
-
             memberRegistered = true;
+
             Console.WriteLine("Member registered successfully.");
-            
         }
+
         // Displays member profile.
         static void MemberProfile()
         {
@@ -85,19 +81,17 @@
                 return;
             }
 
-            
-
             Console.WriteLine("========================================");
             Console.WriteLine(" MEMBER PROFILE");
             Console.WriteLine("========================================");
-            Console.WriteLine("Name:".PadLeft(20) + " " + memberName);
-            Console.WriteLine("Member ID:".PadLeft(20) + " " + memberId);
-            Console.WriteLine("Email:".PadLeft(20) + " " + memberEmail);
-            Console.WriteLine("Expiry Date:".PadLeft(20) + " " + membershipExpiryDate);
-            Console.WriteLine("Tier:".PadLeft(20) + " " + memberTier);
-           
+            Console.WriteLine("Name:".PadLeft(5) + " " + memberName);
+            Console.WriteLine("Member ID:".PadLeft(5) + " " + memberId);
+            Console.WriteLine("Email:".PadLeft(5)+ " " + memberEmail);
+            Console.WriteLine("Expiry Date:".PadLeft(5) + " " + membershipExpiryDate);
+            Console.WriteLine("Tier:".PadLeft(5) + " " + memberTier);
         }
 
+        // Search book function
         static void SearchBook()
         {
             if (IsRegistered == false)
@@ -109,9 +103,11 @@
             Console.Write("Enter keyword to search: ");
             string keyword = Console.ReadLine().ToLower();
 
-            string title = bookTitle.ToLower();
+           
 
-            if (title.Contains(keyword))
+            keyword = keyword.Substring(0, keyword.Length);//Substring(start, length)
+
+            if (bookTitle.Contains(keyword))
             {
                 Console.WriteLine("Book found: " + bookTitle);
             }
@@ -121,10 +117,33 @@
             }
         }
 
-        //book regestration
-        static void RegisterBook(string title, string author, int copies, string genre = "Uncategorized")
+        // Book registration
+        static void RegisterBook()
         {
-            if (title.Length == 0 || author.Length == 0 || copies <= 0)// if empty
+            if (IsRegistered)
+            {
+                Console.WriteLine("Book is already registered.");
+                return;
+            }
+
+            Console.Write("Enter book title: ");
+            string title = Console.ReadLine().Trim();
+
+            Console.Write("Enter book author: ");
+            string author = Console.ReadLine().Trim();
+
+            Console.Write("Enter number of copies: ");
+            int copies = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter book genre or press Enter to skip: ");
+            string genre = Console.ReadLine().Trim();
+
+            if (genre.Length == 0)
+            {
+                genre = "Uncategorized";
+            }
+
+            if (title.Length == 0 || author.Length == 0 || copies <= 0)
             {
                 Console.WriteLine("Invalid book information.");
                 return;
@@ -141,115 +160,114 @@
             Console.WriteLine("Book registered successfully.");
         }
 
+        // Borrow books
+        static void BorrowBook()
+        {
+            if (!IsRegistered)
+            {
+                Console.WriteLine("No book registered in the system.");
+                return;
+            }
+
+            if (availableCopies <= 0)
+            {
+                Console.WriteLine("Sorry, there are no available copies of this book to borrow.");
+                return;
+            }
+
+            DeductCopy(ref availableCopies);//call it
+
+            Console.WriteLine("Book borrowed successfully! Remaining copies: " + availableCopies);
+        }
+
+        // Deducts one copy from available copies using ref
+        static void DeductCopy(ref int currentCopies)// currentCopies => copy of availableCopies
+        {
+            currentCopies = Math.Max(0, currentCopies - 1);
+        }
+
+       
+
         static void Main(string[] args)
         {
-            
             while (true)
             {
-
-
                 mainMenu();
 
                 Console.Write("Enter your choice: ");
-                int Mainchoice = int.Parse(Console.ReadLine()); 
+                int Mainchoice = int.Parse(Console.ReadLine());
 
                 switch (Mainchoice)
                 {
-                    case 0://registration
+                    case 0: // registration
                         RegisterMember();
                         break;
 
-                    case 1:// profile display
+                    case 1: // profile display
                         MemberProfile();
                         break;
 
-                    case 2://book search
+                    case 2: // book search
                         SearchBook();
                         break;
 
-                    case 3://borrow book
+                    case 3: // borrow book
+                        BorrowBook();
+                        break;
+
+                    case 4: // Return a Book
+                    
+                        break;
+
+                    case 5: // Calculate Late Fine
 
                         break;
 
-                    case 4://Return a Book 
+                    case 6: // Apply Member Discount
 
                         break;
 
-                    case 5://Calculate Late Fine
+                    case 7: // Check Borrowing Eligibility
 
                         break;
 
-                    case 6://Apply Member Discount
+                    case 8: // Register Book
+                        RegisterBook();
+                        break;
+
+                    case 9: // Generate Member ID
 
                         break;
 
-                    case 7://Check Borrowing Eligibility
+                    case 10: // Display Book Details
 
                         break;
 
-                    case 8://Register Book
-                        if (IsRegistered)
-                        {
-                            Console.WriteLine("Book is already registered.");
-                            break;
-                        }
-
-                        Console.Write("Enter book title: ");
-                        string title = Console.ReadLine().Trim();
-
-                        Console.Write("Enter book author: ");
-                        string author = Console.ReadLine().Trim();
-
-                        Console.Write("Enter number of copies: ");
-                        int copies = int.Parse(Console.ReadLine());
-
-                        Console.Write("Enter book genre or press Enter to skip: ");
-                        string genre = Console.ReadLine().Trim();
-
-                        if (genre.Length == 0)
-                        {
-                            RegisterBook(title, author, copies);
-                        }
-                        else
-                        {
-                            RegisterBook(title, author, copies, genre);
-                        }
-
-                        break; 
-
-                     
-
-                    case 9://Generate Member ID
+                    case 11: // Calculate Renewal Fee
 
                         break;
 
-                    case 10://Display Book Details
+                    case 12: // Update Member Email
 
                         break;
 
-                    case 11://Calculate Renewal Fee
+                    case 13: // Session Summary
 
                         break;
 
-                    case 12://Update Member Email
-
-                        break;
-
-                    case 13://Session Summary
-                        break;
-
+                    case 14: // Exit
+                        Console.WriteLine("Thank you for using the Library Management System.");
+                        return;
 
                     default:
                         Console.WriteLine("Invalid choice.");
                         break;
-
-                    
                 }
+
                 Console.WriteLine();
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
-
         }
     }
 }
