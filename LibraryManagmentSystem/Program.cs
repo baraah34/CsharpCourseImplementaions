@@ -230,6 +230,41 @@ namespace LibraryManagmentSystem
             return Math.Round(fine, 2);
         }
 
+        // function for member discount
+        static void ApplyMemberDiscount()
+        {
+            Console.Write("Enter amount: ");
+            double amount = double.Parse(Console.ReadLine());
+
+            double finalAmount = ApplyDiscount(amount, memberTier);
+
+            Console.WriteLine("Amount after discount: " + finalAmount.ToString("F2") + " OMR");
+        }
+
+        // Discount function for normal discount
+        static double ApplyDiscount(double amount)
+        {
+            double finalAmount = amount - (amount * 0.10);
+            return Math.Round(finalAmount, 2);
+        }
+
+        // Discount function based on member tier
+        static double ApplyDiscount(double amount, string tier)
+        {
+            tier = tier.ToUpper();
+
+            double discount = 0.10;
+
+            if (tier == "PREMIUM")
+            {
+                discount = 0.20;
+            }
+
+            double finalAmount = amount - (amount * discount);
+
+            return Math.Round(finalAmount, 2);
+        }
+
         static void Main(string[] args)
         {
             while (true)
@@ -266,10 +301,11 @@ namespace LibraryManagmentSystem
                         break;
 
                     case 6: // Apply Member Discount
-
+                        ApplyMemberDiscount();
                         break;
 
                     case 7: // Check Borrowing Eligibility
+                          
 
                         break;
 
