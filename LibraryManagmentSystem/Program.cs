@@ -212,6 +212,23 @@ namespace LibraryManagmentSystem
         }
 
 
+        //  calculating late fine
+        static void CalculateLateFine()
+        {
+            Console.Write("Enter overdue days: ");
+            int days = int.Parse(Console.ReadLine());
+
+            double fine = CalculateLateFine(days);
+
+            Console.WriteLine("Late fine: " + fine.ToString("F2") + " OMR");
+        }
+
+        // Calculates late fine and returns double
+        static double CalculateLateFine(int days)
+        {
+            double fine = Math.Sqrt(days) * 2.5;
+            return Math.Round(fine, 2);
+        }
 
         static void Main(string[] args)
         {
@@ -245,7 +262,7 @@ namespace LibraryManagmentSystem
                         break;
 
                     case 5: // Calculate Late Fine
-
+                        CalculateLateFine();
                         break;
 
                     case 6: // Apply Member Discount
