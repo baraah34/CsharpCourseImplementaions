@@ -102,12 +102,12 @@ namespace LibraryManagmentSystem
 
             Console.Write("Enter keyword to search: ");
             string keyword = Console.ReadLine().ToLower();
-
+            string title = bookTitle.ToLower();
            
 
-            keyword = keyword.Substring(0, keyword.Length);//Substring(start, length)
+            keyword = keyword.Substring(0, keyword.Length);//Substring(start, length) =>baraah (0,2)=>ba
 
-            if (bookTitle.Contains(keyword))
+            if (title.Contains(keyword))
             {
                 Console.WriteLine("Book found: " + bookTitle);
             }
@@ -169,7 +169,7 @@ namespace LibraryManagmentSystem
                 return;
             }
 
-            if (availableCopies <= 0)
+            if (availableCopies == 0)
             {
                 Console.WriteLine("Sorry, there are no available copies of this book to borrow.");
                 return;
@@ -183,10 +183,35 @@ namespace LibraryManagmentSystem
         // Deducts one copy from available copies using ref
         static void DeductCopy(ref int currentCopies)// currentCopies => copy of availableCopies
         {
-            currentCopies = Math.Max(0, currentCopies - 1);
+            currentCopies--;
         }
 
-       
+        // Return a borrowed book
+        static void ReturnBook()
+        {
+            if (!IsRegistered)
+            {
+                Console.WriteLine("No book registered in the system.");
+                return;
+            }
+
+            if (availableCopies == maxBookCopies)
+            {
+                Console.WriteLine("All copies are already returned.");
+                return;
+            }
+
+            AddCopy(ref availableCopies);
+
+            Console.WriteLine("Book returned successfully! Available copies: " + availableCopies);
+        }
+        // Adds one copy using ref
+        static void AddCopy(ref int currentCopies)
+        {
+            currentCopies = Math.Min(maxBookCopies, currentCopies + 1);
+        }
+
+
 
         static void Main(string[] args)
         {
@@ -216,7 +241,7 @@ namespace LibraryManagmentSystem
                         break;
 
                     case 4: // Return a Book
-                    
+                        ReturnBook();
                         break;
 
                     case 5: // Calculate Late Fine
