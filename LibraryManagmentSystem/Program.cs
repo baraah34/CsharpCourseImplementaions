@@ -265,6 +265,39 @@ namespace LibraryManagmentSystem
             return Math.Round(finalAmount, 2);
         }
 
+        // Handles borrowing eligibility.
+        static void CheckEligibility()
+        {
+            if (!memberRegistered)
+            {
+                Console.WriteLine("No member registered.");
+                return;
+            }
+
+            bool eligible = CheckBorrowingEligibility(membershipExpiryDate);
+
+            if (eligible)
+            {
+                Console.WriteLine("Member is eligible to borrow books.");
+            }
+            else
+            {
+                Console.WriteLine("Member is not eligible. Membership expired.");
+            }
+        }
+        // Checks if the member can borrow based on expiry date.
+        static bool CheckBorrowingEligibility(string expiryDate)
+        {
+            DateTime expiry = DateTime.Parse(expiryDate);
+
+            return expiry >= DateTime.Today;
+        }
+
+
+
+
+
+
         static void Main(string[] args)
         {
             while (true)
@@ -305,8 +338,8 @@ namespace LibraryManagmentSystem
                         break;
 
                     case 7: // Check Borrowing Eligibility
-                          
 
+                        CheckEligibility();
                         break;
 
                     case 8: // Register Book
