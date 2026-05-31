@@ -293,7 +293,37 @@ namespace LibraryManagmentSystem
             return expiry >= DateTime.Today;
         }
 
+        // Handles member ID generation.
+        static void HandleGenerateMemberId()
+        {
+            if (!memberRegistered)
+            {
+                Console.WriteLine("No member registered.");
+                return;
+            }
 
+            memberId = GenerateMemberId();
+
+            Console.WriteLine("Generated Member ID: " + memberId);
+        }
+
+        // Generates a member ID.
+        static string GenerateMemberId()
+        {
+            string cleanName = memberName.Trim().Replace(" ", "").ToUpper();
+
+            if (cleanName.Length < 3)
+            {
+                cleanName = cleanName + "XXX";
+            }
+
+            string namePart = cleanName.Substring(0, 3);
+
+            long timeNumber = DateTime.Now.Ticks % 1000000;
+            double numberPart = Math.Sqrt(timeNumber);
+
+            return namePart + "-" + Math.Round(numberPart, 0);
+        }
 
 
 
@@ -347,6 +377,7 @@ namespace LibraryManagmentSystem
                         break;
 
                     case 9: // Generate Member ID
+                        HandleGenerateMemberId();
 
                         break;
 
