@@ -6,19 +6,42 @@ namespace TS_DS_01
     {
         static void Problem01()
         {
-            double[] temperatures = new double[7] { 34.5, 35.2, 33.8, 36.1, 34.9, 35.7, 33.5 };
+            double[] temperatures = new double[7] { 38.5, 35.2, 34.8, 36.3, 34.9, 35.9, 30.5 };
 
             Console.WriteLine("Problem 1: Temperature Log ");
 
             for (int i = 0; i < temperatures.Length; i++)
             {
+                //i = 0  → Day 1
+               // i = 1  → Day 2
+               //i = 2  → Day 3
                 Console.WriteLine("Day" + (i + 1) + ": " + temperatures[i] + " C");
             }
 
             Console.WriteLine("Total number of readings: " + temperatures.Length);
         }
 
-      
+        static void Problem02()
+        {
+            int[] scores = new int[6] { 85, 92, 76, 88, 95, 67 };
+
+            Console.WriteLine(" Problem 2: Student Score Board ");
+
+            Console.WriteLine("Original Scores:");
+            foreach (int score in scores)
+            {
+                Console.WriteLine(score);
+            }
+
+            Array.Reverse(scores);
+
+            Console.WriteLine("\nReversed Scores:");
+
+            foreach (int score in scores)
+            {
+                Console.WriteLine(score);
+            }
+        }
         static void Main(string[] args)
             {
                 bool mainMenu = true;
@@ -55,7 +78,7 @@ namespace TS_DS_01
                             break;
 
                         case 2:
-                           
+                            Problem02();
                             break;
 
                         case 3:
