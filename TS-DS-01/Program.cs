@@ -4,6 +4,7 @@ namespace TS_DS_01
 {
     internal class Program
     {
+        // function for problem 1
         static void Problem01()
         {
             double[] temperatures = new double[7] { 38.5, 35.2, 34.8, 36.3, 34.9, 35.9, 30.5 };
@@ -20,7 +21,7 @@ namespace TS_DS_01
 
             Console.WriteLine("Total number of readings: " + temperatures.Length);
         }
-
+        // function for problem 2
         static void Problem02()
         {
             int[] scores = new int[6] { 85, 92, 76, 88, 95, 67 };
@@ -28,6 +29,7 @@ namespace TS_DS_01
             Console.WriteLine(" Problem 2: Student Score Board ");
 
             Console.WriteLine("Original Scores:");
+            //take each number from scores put it in score
             foreach (int score in scores)
             {
                 Console.WriteLine(score);
@@ -36,10 +38,35 @@ namespace TS_DS_01
             Array.Reverse(scores);
 
             Console.WriteLine("\nReversed Scores:");
-
+            //for reverse
             foreach (int score in scores)
             {
                 Console.WriteLine(score);
+            }
+        }
+        // function for problem 3
+        static void Problem03()
+        {
+            double[] prices = new double[5] { 4.99, 2.50, 10.75, 6.30, 8.99 };
+
+            double targetPrice = 8.99;
+
+            Console.WriteLine(" Problem 3: Product Price Finder ");
+
+            for (int i = 0; i < prices.Length; i++)
+            {
+                Console.WriteLine("Product " + (i + 1) + ": " + prices[i] + " OMR");
+            }
+
+            int index = Array.IndexOf(prices, targetPrice);
+
+            if (index != -1)
+            {
+                Console.WriteLine("\nPrice found at index: " + index);
+            }
+            else
+            {
+                Console.WriteLine("\nPrice not found.");
             }
         }
         static void Main(string[] args)
@@ -82,6 +109,7 @@ namespace TS_DS_01
                             break;
 
                         case 3:
+                        Problem03();
                             break;
 
                         case 4:
