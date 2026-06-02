@@ -19,6 +19,31 @@ namespace TS_DS_01
 
             Console.WriteLine("Total number of readings: " + temperatures.Count);
         }
+        // function for problem 2
+        static void Problem02()
+        {
+            List<int> scores = new List<int>() { 85, 92, 76, 88, 95, 67 };
+
+            Console.WriteLine(" Problem 2: Student Score Board ");
+
+            Console.WriteLine("Original Scores:");
+
+            foreach (int score in scores)
+            {
+                Console.WriteLine(score);
+            }
+
+            scores.Reverse();
+
+            Console.WriteLine("\nReversed Scores:");
+
+            foreach (int score in scores)
+            {
+                Console.WriteLine(score);
+            }
+        }
+
+
 
         static void Main(string[] args)
         {
@@ -56,7 +81,7 @@ namespace TS_DS_01
                         break;
 
                     case 2:
-                   
+                        Problem02();
                         break;
 
                     case 3:
