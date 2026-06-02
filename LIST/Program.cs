@@ -141,7 +141,52 @@ namespace TS_DS_01
             }
         }
 
+        // function for problem 7
+        static void Problem07()
+        {
+            List<int> copies = new List<int>() { 3, 0, 7, 2, 5, 1, 9, 4, 6 };
 
+            bool hasZero = false;
+
+            Console.WriteLine(" Problem 7: Library Book Shelf Scanner ");
+
+            Console.WriteLine("Original Copy Counts:");
+
+            foreach (int copy in copies)
+            {
+                Console.WriteLine(copy);
+            }
+
+            copies.Sort();
+
+            Console.WriteLine("\nSorted Copy Counts:");
+
+            foreach (int copy in copies)
+            {
+                Console.WriteLine(copy);
+            }
+
+            int maxCopies = copies[copies.Count - 1];
+
+            Console.WriteLine("\nBook with the most copies has: " + maxCopies + " copies");
+
+            for (int i = 0; i < copies.Count; i++)
+            {
+                if (copies[i] == 0)
+                {
+                    hasZero = true;
+                }
+            }
+
+            if (hasZero == true)
+            {
+                Console.WriteLine("There is at least one book with zero copies.");
+            }
+            else
+            {
+                Console.WriteLine("There are no books with zero copies.");
+            }
+        }
         static void Main(string[] args)
         {
             bool mainMenu = true;
@@ -198,7 +243,7 @@ namespace TS_DS_01
                         break;
 
                     case 7:
-                     
+                        Problem07()l
                         break;
 
                     case 8:
