@@ -73,7 +73,7 @@ namespace TS_DS_01
 
         static void Problem04()
         {
-            int[] finishTimes = new int[8] { 55, 48, 62, 51, 45, 59, 50, 53 };
+            int[] finishTimes = new int[8] { 55, 47, 63, 51, 41, 59, 50, 54};
 
             Console.WriteLine(" Problem 4: Race Finish Times ");
 
@@ -94,6 +94,24 @@ namespace TS_DS_01
 
             Console.WriteLine("\nTotal participants: " + finishTimes.Length);
         }
+        // function for problem 5
+
+        static void Problem05()
+        {
+            int[] grades = new int[10] { 86, 93, 75, 89, 96, 67, 79, 91, 81, 71 };
+
+            Console.WriteLine(" Problem 5: Classroom Grade Report ");
+
+            Array.Sort(grades);
+            Array.Reverse(grades);
+
+            for (int i = 0; i < grades.Length; i++)
+            {
+                Console.WriteLine("Rank " + (i + 1) + ": " + grades[i]);
+            }
+        }
+
+
         static void Main(string[] args)
             {
                 bool mainMenu = true;
@@ -142,6 +160,7 @@ namespace TS_DS_01
                             break;
 
                         case 5:
+                        Problem05();
                             break;
 
                         case 6:
