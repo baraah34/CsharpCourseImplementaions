@@ -149,6 +149,66 @@ namespace TS_DS_01
             }
         }
 
+
+        //function for problem 7
+        static void Problem07()
+        {
+            int[] copies = new int[9] { 3, 0, 7, 2, 5, 1, 9, 4, 6 };
+
+            // Create a boolean variable to check if there is any book with zero copies
+            // At the beginning, we assume there is no zero, so we set it to false
+
+            bool hasZero = false;
+
+            Console.WriteLine(" Problem 7: Library Book Shelf Scanner ");
+
+            // Use foreach loop to print each copy count in the original order
+            Console.WriteLine("Original Copy Counts:");
+            foreach (int copy in copies)
+            {
+                Console.WriteLine(copy);
+            }
+
+
+            // Sort the copies array in ascending order
+            // Example: 3, 0, 7 becomes 0, 3, 7
+            Array.Sort(copies);
+
+            // Use foreach loop again to print each copy count after sorting
+            Console.WriteLine("\nSorted Copy Counts:");
+            foreach (int copy in copies)
+            {
+                Console.WriteLine(copy);
+            }
+
+            // Get the maximum number of copies
+            // After sorting, the biggest number is always at the last index
+            // copies.Length - 1 gives the last index of the array
+            int maxCopies = copies[copies.Length - 1];
+
+            Console.WriteLine("\nBook with the most copies has: " + maxCopies + " copies");
+
+            // Use a for loop to check every value in the copies array
+            for (int i = 0; i < copies.Length; i++)
+            {
+                // Check if the current copy count is equal to zero
+                if (copies[i] == 0)
+                {
+                    // If zero is found, change hasZero to true
+                    hasZero = true;
+                }
+            }
+
+            if (hasZero == true)
+            {
+                Console.WriteLine("There is at least one book with zero copies.");
+            }
+            else
+            {
+                Console.WriteLine("There are no books with zero copies.");
+            }
+        }
+
         static void Main(string[] args)
             {
                 bool mainMenu = true;
@@ -205,6 +265,7 @@ namespace TS_DS_01
                             break;
 
                         case 7:
+                        Problem07();
                             break;
 
                         case 8:
