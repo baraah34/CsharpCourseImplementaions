@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TS_DS_01
 {
@@ -111,6 +113,41 @@ namespace TS_DS_01
             }
         }
 
+        // function for problem 6
+
+
+        static void Problem06()
+        {
+            int[] quantities = new int[8] { 13, 26, 9, 41, 16, 31, 23, 11 };
+
+            int total = 0;
+            int targetQuantity = 30;
+
+            Console.WriteLine(" Problem 6: Warehouse Inventory Check ");
+            //Calculate and display the total stock by summing all elements
+            for (int i = 0; i < quantities.Length; i++)
+            {
+                total +=   quantities[i];
+            }
+            //Display the average stock per slot (total divided by array length).
+            double average = (double)total / quantities.Length;
+
+            Console.WriteLine("Total stock: " + total);
+            Console.WriteLine("Average stock per slot: " + average);
+
+           // Search for a hardcoded target quantity
+            //and report its slot index, or indicate it was not found.
+            int index = Array.IndexOf(quantities, targetQuantity);
+
+            if (index != -1)
+            {
+                Console.WriteLine("Target quantity found at slot index: " + index);
+            }
+            else
+            {
+                Console.WriteLine("Target quantity not found.");
+            }
+        }
 
         static void Main(string[] args)
             {
@@ -164,6 +201,7 @@ namespace TS_DS_01
                             break;
 
                         case 6:
+                        Problem06();
                             break;
 
                         case 7:
