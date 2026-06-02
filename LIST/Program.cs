@@ -68,6 +68,31 @@ namespace TS_DS_01
                 Console.WriteLine("\nPrice not found.");
             }
         }
+        // function for problem 4
+        static void Problem04()
+        {
+            List<int> finishTimes = new List<int>() { 55, 47, 63, 51, 41, 59, 50, 54 };
+
+            Console.WriteLine(" Problem 4: Race Finish Times ");
+
+            Console.WriteLine("Original Finish Times:");
+
+            foreach (int time in finishTimes)
+            {
+                Console.WriteLine(time + " seconds");
+            }
+
+            finishTimes.Sort();
+
+            Console.WriteLine("\nSorted Finish Times Fastest First:");
+
+            foreach (int time in finishTimes)
+            {
+                Console.WriteLine(time + " seconds");
+            }
+
+            Console.WriteLine("\nTotal participants: " + finishTimes.Count);
+        }
 
 
         static void Main(string[] args)
@@ -114,7 +139,7 @@ namespace TS_DS_01
                         break;
 
                     case 4:
-                   
+                        Problem04();
                         break;
 
                     case 5:
