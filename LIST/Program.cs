@@ -109,6 +109,37 @@ namespace TS_DS_01
                 Console.WriteLine("Rank " + (i + 1) + ": " + grades[i]);
             }
         }
+        // function for problem 6
+        static void Problem06()
+        {
+            List<int> quantities = new List<int>() { 13, 26, 9, 41, 16, 31, 23, 11 };
+
+            int total = 0;
+            int targetQuantity = 30;
+
+            Console.WriteLine(" Problem 6: Warehouse Inventory Check ");
+
+            for (int i = 0; i < quantities.Count; i++)
+            {
+                total += quantities[i];
+            }
+
+            double average = (double)total / quantities.Count;
+
+            Console.WriteLine("Total stock: " + total);
+            Console.WriteLine("Average stock per slot: " + average);
+
+            int index = quantities.IndexOf(targetQuantity);
+
+            if (index != -1)
+            {
+                Console.WriteLine("Target quantity found at slot index: " + index);
+            }
+            else
+            {
+                Console.WriteLine("Target quantity not found.");
+            }
+        }
 
 
         static void Main(string[] args)
@@ -163,7 +194,7 @@ namespace TS_DS_01
                         break;
 
                     case 6:
-                 
+                        Problem06();
                         break;
 
                     case 7:
