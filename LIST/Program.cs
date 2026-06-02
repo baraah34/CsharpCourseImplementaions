@@ -94,6 +94,22 @@ namespace TS_DS_01
             Console.WriteLine("\nTotal participants: " + finishTimes.Count);
         }
 
+        // function for problem 5
+        static void Problem05()
+        {
+            List<int> grades = new List<int>() { 86, 93, 75, 89, 96, 67, 79, 91, 81, 71 };
+
+            Console.WriteLine(" Problem 5: Classroom Grade Report ");
+
+            grades.Sort();
+            grades.Reverse();
+
+            for (int i = 0; i < grades.Count; i++)
+            {
+                Console.WriteLine("Rank " + (i + 1) + ": " + grades[i]);
+            }
+        }
+
 
         static void Main(string[] args)
         {
@@ -143,7 +159,7 @@ namespace TS_DS_01
                         break;
 
                     case 5:
-                    
+                        Problem05();
                         break;
 
                     case 6:
