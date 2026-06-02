@@ -43,6 +43,31 @@ namespace TS_DS_01
             }
         }
 
+        // function for problem 3
+        static void Problem03()
+        {
+            List<double> prices = new List<double>() { 4.99, 2.50, 10.75, 6.30, 8.99 };
+
+            double targetPrice = 8.99;
+
+            Console.WriteLine(" Problem 3: Product Price Finder ");
+
+            for (int i = 0; i < prices.Count; i++)
+            {
+                Console.WriteLine("Product " + (i + 1) + ": " + prices[i] + " OMR");
+            }
+
+            int index = prices.IndexOf(targetPrice);
+
+            if (index != -1)
+            {
+                Console.WriteLine("\nPrice found at index: " + index);
+            }
+            else
+            {
+                Console.WriteLine("\nPrice not found.");
+            }
+        }
 
 
         static void Main(string[] args)
@@ -85,7 +110,7 @@ namespace TS_DS_01
                         break;
 
                     case 3:
-                   
+                        Problem03();
                         break;
 
                     case 4:
