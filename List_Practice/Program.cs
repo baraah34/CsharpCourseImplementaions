@@ -8,40 +8,41 @@ namespace TS_DS_02_List_Practice
         static void Problem01()
         {
             List<string> menuItems = new List<string>();
-
+            //nitialize the list with at least 4 hardcoded dish names
             menuItems.Add("Burger");
             menuItems.Add("Pizza");
             menuItems.Add("Pasta");
-            menuItems.Add("Caesar Salad");
+            menuItems.Add("Salad");
 
-            Console.WriteLine("===== Problem 1: Room Service Menu =====");
+            Console.WriteLine(" Problem 1: Room Service Menu ");
 
-            Console.WriteLine("\n--- Original Menu ---");
+            //Display all current menu items with their position number (starting from 1)
+            Console.WriteLine(" Original Menu ");
             for (int i = 0; i < menuItems.Count; i++)
             {
                 Console.WriteLine((i + 1) + ". " + menuItems[i]);
             }
-
+            //Add 2 new dishes to the list and display the updated menu
             menuItems.Add("Chicken Sandwich");
             menuItems.Add("Fruit Salad");
 
-            Console.WriteLine("\n--- Updated Menu After Adding 2 Dishes ---");
+            Console.WriteLine(" Updated Menu After Adding 2 Dishes ");
             for (int i = 0; i < menuItems.Count; i++)
             {
                 Console.WriteLine((i + 1) + ". " + menuItems[i]);
             }
-
+            //Remove one specific dish by its name and display the menu again
             menuItems.Remove("Pizza");
 
-            Console.WriteLine("\n--- Menu After Removing Pizza ---");
+            Console.WriteLine(" Menu After Removing Pizza ");
             for (int i = 0; i < menuItems.Count; i++)
             {
                 Console.WriteLine((i + 1) + ". " + menuItems[i]);
             }
-
+            //Check whether a hardcoded dish name is currently available and print an appropriate message
             string dishToCheck = "Pasta";
 
-            Console.WriteLine("\n--- Dish Availability Check ---");
+            Console.WriteLine(" Dish Availability Check ");
             if (menuItems.Contains(dishToCheck))
             {
                 Console.WriteLine(dishToCheck + " is available.");
@@ -50,8 +51,8 @@ namespace TS_DS_02_List_Practice
             {
                 Console.WriteLine(dishToCheck + " is not available.");
             }
-
-            Console.WriteLine("\n--- Total Menu Items ---");
+            //Display the total number of items on the menu
+            Console.WriteLine(" Total Menu Items ");
             Console.WriteLine("Total items on the menu: " + menuItems.Count);
         }
 
@@ -82,7 +83,7 @@ namespace TS_DS_02_List_Practice
                 switch (choice)
                 {
                     case 1:
-                       
+                        Problem01();
                         break;
 
                     case 2:
