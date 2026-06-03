@@ -56,6 +56,68 @@ namespace TS_DS_02_List_Practice
             Console.WriteLine("Total items on the menu: " + menuItems.Count);
         }
 
+        static void Problem02()
+        {
+            List<string> checkIn = new List<string>();
+
+            checkIn.Add("Baraah");
+            checkIn.Add("Wejdan");
+            checkIn.Add("Hafisa");
+            checkIn.Add("Hidaya");
+            checkIn.Add("Rahaf");
+
+            Console.WriteLine(" Problem 2: Guest Check-In Queue ");
+
+            Console.WriteLine(" Original Check-In Queue ");
+            for (int i = 0; i < checkIn.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + checkIn[i]);
+            }
+
+            checkIn.RemoveAt(0);
+
+            Console.WriteLine(" Queue After First Guest Checked In ");
+            for (int i = 0; i < checkIn.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + checkIn[i]);
+            }
+
+            checkIn.RemoveAt(0);
+
+            Console.WriteLine(" Queue After Second Guest Checked In ");
+            for (int i = 0; i < checkIn.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + checkIn[i]);
+            }
+
+            checkIn.Add("Fatma");
+            checkIn.Add("Karim");
+            checkIn.Add("Abdullah");
+
+            Console.WriteLine(" Queue After Adding 3 New Guests ");
+            for (int i = 0; i < checkIn.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + checkIn[i]);
+            }
+
+            string guestToCheck = "Baraah";
+
+            Console.WriteLine(" Guest Waiting Check ");
+            if (checkIn.Contains(guestToCheck))
+            {
+                Console.WriteLine(guestToCheck + " is still waiting in the queue.");
+            }
+            else
+            {
+                Console.WriteLine(guestToCheck + " is not in the queue.");
+            }
+
+            Console.WriteLine(" Total Guests Waiting ");
+            Console.WriteLine("Total guests currently waiting: " + checkIn.Count);
+        }
+
+
+
 
         static void Main(string[] args)
         {
@@ -87,7 +149,7 @@ namespace TS_DS_02_List_Practice
                         break;
 
                     case 2:
-                        
+                        Problem02();
                         break;
 
                     case 3:
