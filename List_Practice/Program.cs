@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace TS_DS_02_List_Practice
@@ -59,7 +60,7 @@ namespace TS_DS_02_List_Practice
         static void Problem02()
         {
             List<string> checkIn = new List<string>();
-
+            //Initialize the list with 5 hardcoded guest names representing the initial queue.
             checkIn.Add("Baraah");
             checkIn.Add("Wejdan");
             checkIn.Add("Hafisa");
@@ -67,20 +68,24 @@ namespace TS_DS_02_List_Practice
             checkIn.Add("Rahaf");
 
             Console.WriteLine(" Problem 2: Guest Check-In Queue ");
-
+            //Display the full queue in order with position labels.
             Console.WriteLine(" Original Check-In Queue ");
             for (int i = 0; i < checkIn.Count; i++)
             {
                 Console.WriteLine((i + 1) + ". " + checkIn[i]);
             }
 
-            checkIn.RemoveAt(0);
+            //Simulate 2 guests completing check-in by removing them from the front of the queue.
+            //Display the queue after each removal
+                //first guest 
+             checkIn.RemoveAt(0);
 
             Console.WriteLine(" Queue After First Guest Checked In ");
             for (int i = 0; i < checkIn.Count; i++)
             {
                 Console.WriteLine((i + 1) + ". " + checkIn[i]);
             }
+            //second guest 
 
             checkIn.RemoveAt(0);
 
@@ -89,7 +94,7 @@ namespace TS_DS_02_List_Practice
             {
                 Console.WriteLine((i + 1) + ". " + checkIn[i]);
             }
-
+            //Add 3 new arriving guests to the end of the queue and display the updated queue.
             checkIn.Add("Fatma");
             checkIn.Add("Karim");
             checkIn.Add("Abdullah");
@@ -99,7 +104,7 @@ namespace TS_DS_02_List_Practice
             {
                 Console.WriteLine((i + 1) + ". " + checkIn[i]);
             }
-
+            //Check whether a specific hardcoded guest name is still waiting and print an appropriate message.
             string guestToCheck = "Baraah";
 
             Console.WriteLine(" Guest Waiting Check ");
