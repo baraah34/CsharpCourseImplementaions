@@ -42,6 +42,13 @@
             "22-APR-2026"
         };
 
+        // Dictionary to store bookings
+        // Key = ticket number
+        // Value = flight number + date
+        // Example: TKT-001 -> OA101|12-MAR-2026
+        static Dictionary<string, string> bookingRecord = new Dictionary<string, string>();
+
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
