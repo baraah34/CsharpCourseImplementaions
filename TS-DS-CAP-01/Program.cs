@@ -22,6 +22,17 @@
             "TKT-004",
             "TKT-005"
         };
+
+        // Array of fixed flight numbers
+        static string[] flightNumbers = new string[]
+        {
+            "OA101",
+            "OA102",
+            "OA103",
+            "OA104",
+            "OA105",
+            "OA106"
+        };
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
