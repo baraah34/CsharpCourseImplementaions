@@ -33,6 +33,15 @@
             "OA105",
             "OA106"
         };
+        // List of available dates
+        static List<string> availableDates = new List<string>()
+        {
+            "12-MAR-2026",
+            "15-MAR-2026",
+            "18-APR-2026",
+            "22-APR-2026"
+        };
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
