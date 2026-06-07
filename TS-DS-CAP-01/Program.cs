@@ -56,6 +56,10 @@
         // Stack means last checked-in, first to board
         static Stack<string> boardingStack = new Stack<string>();
 
+        // Dictionary to store passenger seats
+        // Key = passenger name
+        // Value = seat number
+        static Dictionary<string, string> passengerSeatMap = new Dictionary<string, string>();
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
