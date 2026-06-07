@@ -171,6 +171,74 @@ namespace StackQueue
             Console.WriteLine("Final number of actions: " + undoStack.Count);
         }
 
+        // Problem 4: Hospital Emergency Room Triage - QUEUE
+        static void Problem04()
+        {
+            Queue<string> triageQueue = new Queue<string>();
+            Queue<string> tempQueue = new Queue<string>();
+
+            triageQueue.Enqueue("BARAAH");
+            triageQueue.Enqueue("RAHAF");
+            triageQueue.Enqueue("WEJDAN");
+            triageQueue.Enqueue("HAFISA");
+            triageQueue.Enqueue("HIDAYA");
+            triageQueue.Enqueue("MARYAM");
+            triageQueue.Enqueue("MUNA");
+            triageQueue.Enqueue("AISHA");
+
+            Console.WriteLine(" Problem 4: Hospital Emergency Room Triage ");
+
+            Console.WriteLine("Full triage queue:");
+            int position = 1;
+            foreach (string patient in triageQueue)
+            {
+                Console.WriteLine(position + ") " + patient);
+                position++;
+            }
+
+            Console.WriteLine("Next patient using Peek:");
+            Console.WriteLine(triageQueue.Peek());
+
+            Console.WriteLine("Processing first 3 patients:");
+            Console.WriteLine("Seen patient: " + triageQueue.Dequeue());
+            Console.WriteLine("Seen patient: " + triageQueue.Dequeue());
+            Console.WriteLine("Seen patient: " + triageQueue.Dequeue());
+
+            Console.WriteLine("Remaining queue:");
+            foreach (string patient in triageQueue)
+            {
+                Console.WriteLine(patient);
+            }
+
+            string patientLeft = "BARAAH";
+
+            Console.WriteLine("Patient left without being seen: " + patientLeft);
+
+            while (triageQueue.Count > 0)
+            {
+                string currentPatient = triageQueue.Dequeue();
+
+                if (currentPatient != patientLeft)
+                {
+                    tempQueue.Enqueue(currentPatient);
+                }
+            }
+
+            while (tempQueue.Count > 0)
+            {
+                triageQueue.Enqueue(tempQueue.Dequeue());
+            }
+
+            Console.WriteLine("Final queue after removal:");
+            foreach (string patient in triageQueue)
+            {
+                Console.WriteLine(patient);
+            }
+
+            Console.WriteLine("Final queue count: " + triageQueue.Count);
+        }
+
+
         static void Main(string[] args)
         {
             bool mainMenu = true;
@@ -215,6 +283,7 @@ namespace StackQueue
                         break;
 
                     case "4":
+                        Problem04();
                         break;
 
                     case "5":
