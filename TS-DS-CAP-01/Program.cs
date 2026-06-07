@@ -48,6 +48,13 @@
         // Example: TKT-001 -> OA101|12-MAR-2026
         static Dictionary<string, string> bookingRecord = new Dictionary<string, string>();
 
+        // Queue for passengers who checked in
+        // WAITING => Queue means First In First Out
+        static Queue<string> checkedInQueue = new Queue<string>();
+
+        // Stack for boarding passengers
+        // Stack means last checked-in, first to board
+        static Stack<string> boardingStack = new Stack<string>();
 
         static void Main(string[] args)
         {
