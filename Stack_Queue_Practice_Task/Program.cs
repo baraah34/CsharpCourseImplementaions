@@ -5,6 +5,53 @@ namespace StackQueue
 {
     internal class Program
     {
+        // Problem 1: Browser History Tracker - STACK
+        static void Problem01()
+        {
+            Stack<string> browserHistory = new Stack<string>();
+
+            browserHistory.Push("www.google.com");
+            browserHistory.Push("www.youtube.com");
+            browserHistory.Push("www.github.com");
+            browserHistory.Push("www.microsoft.com");
+            browserHistory.Push("www.openai.com");
+
+            Console.WriteLine(" Problem 1: Browser History Tracker ");
+
+            Console.WriteLine("All pages in history:");
+            foreach (string page in browserHistory)
+            {
+                Console.WriteLine(page);
+            }
+
+            Console.WriteLine("Current page using Peek:");
+            Console.WriteLine(browserHistory.Peek());
+
+            Console.WriteLine("User pressed Back twice:");
+            Console.WriteLine("Removed page: " + browserHistory.Pop());
+            Console.WriteLine("Removed page: " + browserHistory.Pop());
+
+            Console.WriteLine("\nRemaining history:");
+            foreach (string page in browserHistory)
+            {
+                Console.WriteLine(page);
+            }
+
+            string searchUrl = "www.youtube.com";
+
+            Console.WriteLine("\nChecking if URL is still in history:");
+            if (browserHistory.Contains(searchUrl))
+            {
+                Console.WriteLine(searchUrl + " is still in the history.");
+            }
+            else
+            {
+                Console.WriteLine(searchUrl + " is NOT in the history.");
+            }
+
+            Console.WriteLine("\nTotal pages remaining: " + browserHistory.Count);
+        }
+
         static void Main(string[] args)
         {
             bool mainMenu = true;
@@ -37,6 +84,7 @@ namespace StackQueue
                 switch (choice)
                 {
                     case "1":
+                        Problem01();
                         break;
 
                     case "2":
