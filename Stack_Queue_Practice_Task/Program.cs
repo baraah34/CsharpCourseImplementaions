@@ -39,7 +39,7 @@ namespace StackQueue
 
             string searchUrl = "www.youtube.com";
 
-            Console.WriteLine("\nChecking if URL is still in history:");
+            Console.WriteLine("Checking if URL is still in history:");
             if (browserHistory.Contains(searchUrl))
             {
                 Console.WriteLine(searchUrl + " is still in the history.");
@@ -51,6 +51,54 @@ namespace StackQueue
 
             Console.WriteLine("\nTotal pages remaining: " + browserHistory.Count);
         }
+
+        // Problem 2: Hotel Check-In Queue - QUEUE
+        static void Problem02()
+        {
+            Queue<string> checkInQueue = new Queue<string>();
+
+            checkInQueue.Enqueue("BARAAH");
+            checkInQueue.Enqueue("RAHAF");
+            checkInQueue.Enqueue("WEJDAN");
+            checkInQueue.Enqueue("HAFISA");
+            checkInQueue.Enqueue("HIDAYA");
+
+            Console.WriteLine(" Problem 2: Hotel Check-In Queue ");
+
+            Console.WriteLine("All waiting guests:");
+            foreach (string guest in checkInQueue)
+            {
+                Console.WriteLine(guest);
+            }
+
+            Console.WriteLine("Next guest using Peek:");
+            Console.WriteLine(checkInQueue.Peek());
+
+            Console.WriteLine("\nServing next 2 guests:");
+            Console.WriteLine("Served guest: " + checkInQueue.Dequeue());
+            Console.WriteLine("Served guest: " + checkInQueue.Dequeue());
+
+            Console.WriteLine("Remaining queue:");
+            foreach (string guest in checkInQueue)
+            {
+                Console.WriteLine(guest);
+            }
+
+            string searchGuest = "RAHAF";
+
+            Console.WriteLine("Checking if guest is still waiting:");
+            if (checkInQueue.Contains(searchGuest))
+            {
+                Console.WriteLine(searchGuest + " is still waiting.");
+            }
+            else
+            {
+                Console.WriteLine(searchGuest + " is NOT waiting.");
+            }
+
+            Console.WriteLine("Total guests still waiting: " + checkInQueue.Count);
+        }
+
 
         static void Main(string[] args)
         {
@@ -88,6 +136,7 @@ namespace StackQueue
                         break;
 
                     case "2":
+                        Problem02();
                         break;
 
                     case "3":
