@@ -99,6 +99,77 @@ namespace StackQueue
             Console.WriteLine("Total guests still waiting: " + checkInQueue.Count);
         }
 
+        // Problem 3: Text Editor Undo System - STACK
+        
+        static void Problem03()
+        {
+            Stack<string> undoStack = new Stack<string>();
+            Stack<string> tempStack = new Stack<string>();
+
+            undoStack.Push("Typed: Hello");
+            undoStack.Push("Typed: World");
+            undoStack.Push("Deleted: World");
+            undoStack.Push("Changed font size");
+            undoStack.Push("Inserted image");
+            undoStack.Push("Changed text color");
+            undoStack.Push("Saved document");
+
+            Console.WriteLine(" Problem 3: Text Editor Undo System ");
+
+            Console.WriteLine("Full undo history:");
+            foreach (string action in undoStack)
+            {
+                Console.WriteLine(action);
+            }
+
+            Console.WriteLine("Next action to undo using Peek:");
+            Console.WriteLine(undoStack.Peek());
+
+            Console.WriteLine("Undo last 2 actions:");
+            Console.WriteLine("Undone: " + undoStack.Pop());
+            Console.WriteLine("Undone: " + undoStack.Pop());
+
+            Console.WriteLine("Undo history after 2 pops:");
+            foreach (string action in undoStack)
+            {
+                Console.WriteLine(action);
+            }
+
+            string targetAction = "Deleted: World";
+
+            Console.WriteLine("Before selective undo:");
+            foreach (string action in undoStack)
+            {
+                Console.WriteLine(action);
+            }
+
+            while (undoStack.Count > 0)
+            {
+                string currentAction = undoStack.Pop();
+
+                if (currentAction != targetAction)
+                {
+                    tempStack.Push(currentAction);
+                }
+                else
+                {
+                    Console.WriteLine("Selective undo removed: " + currentAction);
+                }
+            }
+
+            while (tempStack.Count > 0)
+            {
+                undoStack.Push(tempStack.Pop());
+            }
+
+            Console.WriteLine("After selective undo:");
+            foreach (string action in undoStack)
+            {
+                Console.WriteLine(action);
+            }
+
+            Console.WriteLine("Final number of actions: " + undoStack.Count);
+        }
 
         static void Main(string[] args)
         {
@@ -140,6 +211,7 @@ namespace StackQueue
                         break;
 
                     case "3":
+                        Problem03();
                         break;
 
                     case "4":
