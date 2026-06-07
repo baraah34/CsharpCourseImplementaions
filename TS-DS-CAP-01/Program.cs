@@ -60,6 +60,10 @@
         // Key = passenger name
         // Value = seat number
         static Dictionary<string, string> passengerSeatMap = new Dictionary<string, string>();
+
+        // Queue for waitlist passengers
+        static Queue<string> waitlistQueue = new Queue<string>();
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
