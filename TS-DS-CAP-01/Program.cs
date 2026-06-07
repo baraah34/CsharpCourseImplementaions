@@ -64,9 +64,87 @@
         // Queue for waitlist passengers
         static Queue<string> waitlistQueue = new Queue<string>();
 
+      
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            bool mainMenu = true; // Controls the main menu loop
+
+            while (mainMenu)
+            {
+                Console.Clear(); // Clears screen before showing menu
+
+                Console.WriteLine("========================================");
+                Console.WriteLine("SKY WINGS FLIGHT MANAGEMENT SYSTEM");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1. Register New Passenger");
+                Console.WriteLine("2. View All Passengers");
+                Console.WriteLine("3. Book a Flight Ticket");
+                Console.WriteLine("4. View Booking Details");
+                Console.WriteLine("5. Update a Booking");
+                Console.WriteLine("6. Cancel a Ticket");
+                Console.WriteLine("7. Passenger Check-In");
+                Console.WriteLine("8. Board Passengers (Boarding Stack)");
+                Console.WriteLine("9. Generate Flight Manifest");
+                Console.WriteLine("10. Manage Waitlist & Seat Assignment");
+                Console.WriteLine("0. Exit");
+                Console.WriteLine("========================================");
+
+                Console.Write("Enter your choice: ");
+                int choice = int.Parse(Console.ReadLine());
+
+                Console.Clear();
+                
+
+                switch (choice)
+                {
+                    case 1:
+                        RegisterNewPassenger();
+                        break;
+
+                    case 2:
+                        break;
+
+                    case 3:
+                        break;
+
+                    case 4:
+                        break;
+
+                    case 5:
+                        break;
+
+                    case 6:
+                        break;
+
+                    case 7:
+                        break;
+
+                    case 8:
+                        break;
+
+                    case 9:
+                        break;
+
+                    case 10:
+                        break;
+
+                    case 0:
+                        mainMenu = false; // Stop the loop
+                        Console.WriteLine("Thank you for using Sky Wings Flight Management System.");
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice. Please select from the menu.");
+                        break;
+                }
+
+                // If user did not exit, pause before returning to menu
+                if (mainMenu)
+                {
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                }
+            }
         }
     }
 }
