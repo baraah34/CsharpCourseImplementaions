@@ -48,45 +48,42 @@
         // Example: TKT-001 -> OA101|12-MAR-2026
         static Dictionary<string, string> bookingRecord = new Dictionary<string, string>();
 
-        // Queue for passengers who checked in
-        // WAITING => Queue means First In First Out
+        // List to store cancelled tickets
+        static List<string> cancelledTickets = new List<string>();
+
+        
+        // Passengers who have checked in, awaiting boarding
         static Queue<string> checkedInQueue = new Queue<string>();
 
-        // Stack for boarding passengers
-        // Stack means last checked-in, first to board
+        // Passengers boarding the aircraft (last checked-in, first to board)
         static Stack<string> boardingStack = new Stack<string>();
 
         // Dictionary to store passenger seats
-        // Key = passenger name
-        // Value = seat number
+        //  Key = passengerName, Value = assigned seat (e.g. '14A')
         static Dictionary<string, string> passengerSeatMap = new Dictionary<string, string>();
 
         // Queue for waitlist passengers
         static Queue<string> waitlistQueue = new Queue<string>();
 
-        // List to store cancelled tickets
-        static List<string> cancelledTickets = new List<string>();
-
-
         //==================================================================================
-        //case 0
+        //case 1
         static void RegisterNewPassenger()
         {
             Console.WriteLine(" Register New Passenger ");
 
             Console.Write("Enter passenger full name: ");
-            string name = Console.ReadLine(); // Read passenger name
+            string name = Console.ReadLine(); 
 
             if (name != null)
             {
-                name = name.Trim(); // Remove spaces from start and end
+                name = name.Trim(); 
             }
 
             // Check if name is empty
             if (name == null || name.Length == 0)
             {
                 Console.WriteLine("Error: Passenger name cannot be empty.");
-                return; // Stop function
+                return; 
             }
 
             // Check duplicate name
@@ -185,7 +182,7 @@
             // If ticket already exists in bookingRecord, it already has booking
             if (bookingRecord.ContainsKey(ticket))
             {
-                Console.WriteLine("This ticket already has a booking. Use update booking instead.");
+                Console.WriteLine("This ticket already has a booking");
                 return;
             }
 
@@ -412,7 +409,6 @@
                 newDate = availableDates[dateChoice - 1];
             }
 
-            // Overwrite dictionary value
             bookingRecord[ticket] = newFlight + "|" + newDate;
 
             Console.WriteLine("\nBooking updated successfully.");
@@ -451,39 +447,39 @@
 
                 switch (choice)
                 {
-                    case 1:
+                    case 1:// Register New Passenger
                         RegisterNewPassenger();
                         break;
 
-                    case 2:
+                    case 2://View All Passengers
                         ViewAllPassengers();
                         break;
 
-                    case 3:
+                    case 3:// Book a Flight Ticket
                         BookFlightTicket();
                         break;
 
-                    case 4:
+                    case 4://View Booking Details
                         ViewBookingDetails();
                         break;
 
-                    case 5:
+                    case 5:// Update a Booking
                         UpdateBooking();
                         break;
 
-                    case 6:
+                    case 6:// Cancel a Ticket
                         break;
 
-                    case 7:
+                    case 7:// Passenger Check-In
                         break;
 
-                    case 8:
+                    case 8:// Board Passengers (Boarding Stack)
                         break;
 
-                    case 9:
+                    case 9://Generate Flight Manifest
                         break;
 
-                    case 10:
+                    case 10:// Manage Waitlist & Seat Assignment
                         break;
 
                     case 0:
