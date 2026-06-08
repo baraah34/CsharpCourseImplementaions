@@ -141,11 +141,11 @@
                 }
 
                 Console.WriteLine(
-                    (i + 1).ToString() +
-                    passengerNames[i] +
-                    ticketNumbers[i]+
-                    status
-                );
+                     (i + 1).ToString().PadRight(4) + "| " +
+                     passengerNames[i].PadRight(25) + "| " +
+                     ticketNumbers[i].PadRight(10) + "| " +
+                      status
+                       );
             }
 
             Console.WriteLine("-------------------------------------------------");
@@ -202,6 +202,8 @@
          
 
             // Validate flight choice
+            //if user choice less than 1 and user choice bigger than avalibale flight number 
+            // i use length to know  number of flight inside the array
             if (flightChoice < 1 || flightChoice > flightNumbers.Length)
             {
                 Console.WriteLine("Invalid flight selection.");
@@ -248,7 +250,7 @@
         static void ViewBookingDetails()
         {
             Console.WriteLine("===== View Booking Details =====");
-            // ====from book flight function====
+            // ====THIS CODE from book flight function====
             Console.Write("Enter ticket ID: ");
             string ticket = Console.ReadLine();
 
@@ -284,6 +286,10 @@
             string bookingValue = bookingRecord[ticket];
 
             // Split flight and date using |
+            //flight = "OA101"
+            //date = "12-MAR-2026"
+            //bookingValue = "OA101|12-MAR-2026"
+
             string[] parts = bookingValue.Split('|');
 
             string flight = parts[0];
@@ -298,7 +304,121 @@
             Console.WriteLine("Date: " + date);
             Console.WriteLine("=================================");
         }
+        //======================================================================
+        //case 5
+        static void UpdateBooking()
+        {
+            Console.WriteLine("===== Update a Booking =====");
 
+            Console.Write("Enter ticket ID: ");
+            string ticket = Console.ReadLine();
+
+            if (ticket != null)
+            {
+                ticket = ticket.Trim().ToUpper();
+            }
+
+            // Ticket must exist
+            if (!ticketNumbers.Contains(ticket))
+            {
+                Console.WriteLine("Error: Ticket ID not found.");
+                return;
+            }
+
+            // Cancelled ticket cannot be updated
+            if (cancelledTickets.Contains(ticket))
+            {
+                Console.WriteLine("Error: Cancelled tickets cannot be updated.");
+                return;
+            }
+            // Get old booking value
+            string oldValue = bookingRecord[ticket];
+
+            // Split old booking into flight and date
+            string[] oldParts = oldValue.Split('|');
+
+            string oldFlight = oldParts[0];
+            string oldDate = oldParts[1];
+
+            // New values start as old values
+            string newFlight = oldFlight;
+            string newDate = oldDate;
+
+            Console.WriteLine("Current Flight: " + oldFlight);
+            Console.WriteLine("Current Date: " + oldDate);
+
+            Console.WriteLine("\n1. Change flight only");
+            Console.WriteLine("2. Change date only");
+            Console.WriteLine("3. Change both");
+            Console.WriteLine("0. Cancel update");
+
+            Console.Write("Choose update option:");
+            int choice = int.Parse(Console.ReadLine());
+            
+
+            if (choice == 0)
+            {
+                Console.WriteLine("Update cancelled,No changes made.");
+                return;
+            }
+
+            if (choice < 0 || choice > 3)
+            {
+                Console.WriteLine("Invalid update option.");
+                return;
+            }
+
+            // If user wants to change flight
+            if (choice == 1 || choice == 3)
+            {
+                Console.WriteLine("\nAvailable Flights:");
+
+                for (int i = 0; i < flightNumbers.Length; i++)
+                {
+                    Console.WriteLine((i + 1) + ". " + flightNumbers[i]);
+                }
+                Console.Write("Select new flight:");
+                int flightChoice = int.Parse(Console.ReadLine());
+               
+
+                if (flightChoice < 1 || flightChoice > flightNumbers.Length)
+                {
+                    Console.WriteLine("Invalid flight selection.");
+                    return;
+                }
+
+                newFlight = flightNumbers[flightChoice - 1];
+            }
+
+            // If user wants to change date
+            if (choice == 2 || choice == 3)
+            {
+                Console.WriteLine("\nAvailable Dates:");
+
+                for (int i = 0; i < availableDates.Count; i++)
+                {
+                    Console.WriteLine((i + 1) + ". " + availableDates[i]);
+                }
+                Console.Write("Select new date: ");
+                int dateChoice = int.Parse(Console.ReadLine());
+                
+
+                if (dateChoice < 1 || dateChoice > availableDates.Count)
+                {
+                    Console.WriteLine("Invalid date selection.");
+                    return;
+                }
+
+                newDate = availableDates[dateChoice - 1];
+            }
+
+            // Overwrite dictionary value
+            bookingRecord[ticket] = newFlight + "|" + newDate;
+
+            Console.WriteLine("\nBooking updated successfully.");
+            Console.WriteLine("Old Flight: " + oldFlight + " | Old Date: " + oldDate);
+            Console.WriteLine("New Flight: " + newFlight + " | New Date: " + newDate);
+        }
         static void Main(string[] args)
         {
             bool mainMenu = true; //  main menu loop
@@ -348,6 +468,7 @@
                         break;
 
                     case 5:
+                        UpdateBooking();
                         break;
 
                     case 6:
