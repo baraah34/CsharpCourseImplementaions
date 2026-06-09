@@ -65,6 +65,13 @@
         // Queue for waitlist passengers
         static Queue<string> waitlistQueue = new Queue<string>();
 
+        // Seat row starts from 10
+        static int seatRow = 10;
+
+        // Seat number starts from 0
+        // 0 = A, 1 = B, 2 = C, 3 = D, 4 = E, 5 = F
+        static int seatNumber = 0;
+
         //==================================================================================
         //case 1
         static void RegisterNewPassenger()
@@ -455,8 +462,332 @@
             Console.WriteLine("Ticket ID: " + ticket);
             Console.WriteLine("Removed Booking: " + removedBooking);
 
-            // Do not add to cancelledTickets
-            // because we want the passenger to book again
+           
+        }
+        //============================================================================
+        //case  7
+
+        static void PassengerCheckIn()
+        {
+            bool checkInMenu = true;
+
+            while (checkInMenu)
+            {
+                Console.Clear();
+
+                Console.WriteLine("===== Passenger Check-In =====");
+                Console.WriteLine("1. Check in a passenger");
+                Console.WriteLine("2. View check-in queue");
+                Console.WriteLine("3. Process next passenger");
+                Console.WriteLine("0. Back");
+
+                Console.Write("Enter your choice: ");
+                int choice = int.Parse(Console.ReadLine());
+                
+
+                switch (choice)
+                {
+                    case 1:
+                        CheckInPassenger();
+                        break;
+
+                    case 2:
+                        ViewCheckInQueue();
+                        break;
+
+                    case 3:
+                        ProcessNextPassenger();
+                        break;
+
+                    case 0:
+                        checkInMenu = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid option.");
+                        break;
+                }
+
+                if (checkInMenu)
+                {
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        static void CheckInPassenger()
+        {
+            Console.Write("Enter ticket ID: ");
+            string ticket = Console.ReadLine();
+
+            if (ticket != null)
+            {
+                ticket = ticket.Trim().ToUpper();
+            }
+
+            int index = ticketNumbers.IndexOf(ticket);
+
+            if (index == -1)
+            {
+                Console.WriteLine("Error: Ticket ID not found.");
+                return;
+            }
+
+            if (cancelledTickets.Contains(ticket))
+            {
+                Console.WriteLine("Error: Cancelled ticket cannot check in.");
+                return;
+            }
+
+            if (!bookingRecord.ContainsKey(ticket))
+            {
+                Console.WriteLine("Error: Passenger must have a booking before check-in.");
+                return;
+            }
+
+            string passengerName = passengerNames[index];
+
+            // Passenger cannot be added twice
+            if (checkedInQueue.Contains(passengerName))
+            {
+                Console.WriteLine("Error: Passenger is already in the check-in queue.");
+                return;
+            }
+
+            if (waitlistQueue.Contains(passengerName))
+            {
+                Console.WriteLine("Error: Passenger is already in the waitlist.");
+                return;
+            }
+
+            // If queue has space, add to check-in queue
+            if (checkedInQueue.Count < 10)
+            {
+                checkedInQueue.Enqueue(passengerName);
+                Console.WriteLine(passengerName + " has been added to the check-in queue.");
+            }
+            else
+            {
+                // If queue is full, add to waitlist
+                waitlistQueue.Enqueue(passengerName);
+                Console.WriteLine("Check-in queue is full. Passenger added to waitlist.");
+            }
+        }
+
+        static void ViewCheckInQueue()
+        {
+            Console.WriteLine("===== Current Check-In Queue =====");
+
+            if (checkedInQueue.Count == 0)
+            {
+                Console.WriteLine("Check-in queue is empty.");
+            }
+            else
+            {
+                int position = 1;
+
+                // foreach displays queue without removing items
+                foreach (string passenger in checkedInQueue)
+                {
+                    Console.WriteLine(position + ". " + passenger);
+                    position++;
+                }
+            }
+
+            Console.WriteLine("Waitlist count: " + waitlistQueue.Count);
+        }
+
+        static void ProcessNextPassenger()
+        {
+            if (checkedInQueue.Count == 0)
+            {
+                Console.WriteLine("No passenger in check-in queue.");
+                return;
+            }
+
+            // Remove first passenger from queue
+            string processedPassenger = checkedInQueue.Dequeue();
+
+            Console.WriteLine("Processed passenger: " + processedPassenger);
+
+            // If waitlist has passengers, move first waitlist passenger to queue
+            if (waitlistQueue.Count > 0)
+            {
+                string movedPassenger = waitlistQueue.Dequeue();
+                checkedInQueue.Enqueue(movedPassenger);
+
+                Console.WriteLine("Moved from waitlist to check-in queue: " + movedPassenger);
+            }
+        }
+        //==================================================================================================
+        //CASE 8 
+        static void BoardPassengers()
+        {
+            bool boardingMenu = true;
+
+            while (boardingMenu)
+            {
+                Console.Clear();
+
+                Console.WriteLine("===== Board Passengers =====");
+                Console.WriteLine("1. Load boarding stack from check-in queue");
+                Console.WriteLine("2. Board next passenger");
+                Console.WriteLine("3. View boarding stack");
+                Console.WriteLine("4. View boarding log");
+                Console.WriteLine("0. Back");
+
+                Console.Write("Enter your choice: ");
+                int choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        LoadBoardingStack();
+                        break;
+
+                    case 2:
+                        BoardNextPassenger();
+                        break;
+
+                    case 3:
+                        ViewBoardingStack();
+                        break;
+
+                    case 4:
+                        ViewBoardingLog();
+                        break;
+
+                    case 0:
+                        boardingMenu = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid option.");
+                        break;
+                }
+
+                if (boardingMenu)
+                {
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        static void LoadBoardingStack()
+        {
+            // If stack has data and queue is empty, it means already loaded
+            if (checkedInQueue.Count == 0 && boardingStack.Count > 0)
+            {
+                Console.WriteLine("Warning: Boarding stack is already loaded.");
+                return;
+            }
+
+            if (checkedInQueue.Count == 0)
+            {
+                Console.WriteLine("Check-in queue is empty. Nothing to load.");
+                return;
+            }
+
+            int count = 0;
+
+            // Move all passengers from queue to stack
+            while (checkedInQueue.Count > 0)
+            {
+                string passenger = checkedInQueue.Dequeue();
+                boardingStack.Push(passenger);
+                count++;
+            }
+
+            Console.WriteLine(count + " passengers loaded into boarding stack.");
+        }
+        static string GenerateNextSeat()
+        {
+            char seatLetter = (char)('A' + seatNumber);
+
+            string seat = seatRow.ToString() + seatLetter;
+
+            seatNumber++;
+
+            if (seatNumber == 6)
+            {
+                seatNumber = 0;
+                seatRow++;
+            }
+
+            if (seatRow > 40)
+            {
+                seatRow = 40;
+                seatNumber = 5;
+            }
+
+            return seat;
+        }
+        static void BoardNextPassenger()
+        {
+            if (boardingStack.Count == 0)
+            {
+                Console.WriteLine("Boarding stack is empty.");
+                return;
+            }
+
+            // Pop removes the top passenger from stack
+            string passenger = boardingStack.Pop();
+
+            // Generate automatic seat
+            string seat = GenerateNextSeat();
+
+            // Add seat to dictionary
+            if (passengerSeatMap.ContainsKey(passenger))
+            {
+                passengerSeatMap[passenger] = seat;
+            }
+            else
+            {
+                passengerSeatMap.Add(passenger, seat);
+            }
+
+            Console.WriteLine("Passenger boarded successfully.");
+            Console.WriteLine("Passenger Name: " + passenger);
+            Console.WriteLine("Assigned Seat: " + seat);
+        }
+
+        static void ViewBoardingStack()
+        {
+            Console.WriteLine("===== Boarding Stack =====");
+
+            if (boardingStack.Count == 0)
+            {
+                Console.WriteLine("Boarding stack is empty.");
+                return;
+            }
+
+            int position = 1;
+
+            // foreach displays stack without removing items
+            foreach (string passenger in boardingStack)
+            {
+                Console.WriteLine(position + ". " + passenger);
+                position++;
+            }
+        }
+
+        static void ViewBoardingLog()
+        {
+            Console.WriteLine("===== Boarding Log =====");
+
+            if (passengerSeatMap.Count == 0)
+            {
+                Console.WriteLine("No boarded passengers yet.");
+                return;
+            }
+
+            // Display each boarded passenger and seat
+            foreach (KeyValuePair<string, string> entry in passengerSeatMap)
+            {
+                Console.WriteLine(entry.Key + " - Seat: " + entry.Value);
+            }
         }
         static void Main(string[] args)
         {
@@ -515,9 +846,11 @@
                         break;
 
                     case 7:// Passenger Check-In
+                        PassengerCheckIn();
                         break;
 
                     case 8:// Board Passengers (Boarding Stack)
+                        BoardPassengers();
                         break;
 
                     case 9://Generate Flight Manifest
