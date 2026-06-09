@@ -415,6 +415,49 @@
             Console.WriteLine("Old Flight: " + oldFlight + " | Old Date: " + oldDate);
             Console.WriteLine("New Flight: " + newFlight + " | New Date: " + newDate);
         }
+        //===========================================================================================================
+        //case 6 
+
+        static void CancelTicket()
+        {
+            Console.WriteLine("===== Cancel a Booking =====");
+
+            Console.Write("Enter ticket ID: ");
+            string ticket = Console.ReadLine();
+
+            if (ticket != null)
+            {
+                ticket = ticket.Trim().ToUpper();
+            }
+
+            int index = ticketNumbers.IndexOf(ticket);
+
+            if (index == -1)
+            {
+                Console.WriteLine("Error: Ticket ID not found.");
+                return;
+            }
+
+            if (!bookingRecord.ContainsKey(ticket))
+            {
+                Console.WriteLine("Error: This ticket has no booking to cancel.");
+                return;
+            }
+
+            string passengerName = passengerNames[index];
+
+            string removedBooking = bookingRecord[ticket];
+
+            bookingRecord.Remove(ticket);
+
+            Console.WriteLine("Booking cancelled successfully.");
+            Console.WriteLine("Passenger Name: " + passengerName);
+            Console.WriteLine("Ticket ID: " + ticket);
+            Console.WriteLine("Removed Booking: " + removedBooking);
+
+            // Do not add to cancelledTickets
+            // because we want the passenger to book again
+        }
         static void Main(string[] args)
         {
             bool mainMenu = true; //  main menu loop
@@ -468,6 +511,7 @@
                         break;
 
                     case 6:// Cancel a Ticket
+                        CancelTicket();
                         break;
 
                     case 7:// Passenger Check-In
