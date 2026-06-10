@@ -1,4 +1,9 @@
-﻿namespace TS_DS_CAP_01
+﻿using System;
+using System.Collections.Generic;
+using System.Linq; // LINQ
+using System.IO;   // Files
+
+namespace TS_DS_CAP_01
 {
     internal class Program
     {
