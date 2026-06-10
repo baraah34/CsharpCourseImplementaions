@@ -205,7 +205,6 @@ namespace TS_DS_CAP_01
             // Save passenger details in passengers.txt
             SavePassengerToFile(name, newTicket);
 
-            //WriteActivityLog("New passenger registered: " + name + " | Ticket: " + newTicket);
 
             Console.WriteLine("Passenger registered successfully.");
             Console.WriteLine("Passenger Name: " + name);
