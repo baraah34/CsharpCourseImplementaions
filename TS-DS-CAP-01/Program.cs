@@ -81,7 +81,25 @@ namespace TS_DS_CAP_01
         static string activityLogFile = "activity_log.txt";
         static string boardingLogFile = "boarding_log.txt";
 
-        //==================================================================================
+        // ============================================================
+        // file function: Write activity log
+        // i use error handling
+        static void WriteActivityLog(string message)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(activityLogFile, true))
+                {
+                    writer.WriteLine(DateTime.Now + " - " + message);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error: Could not write to activity log file.");
+            }
+        }
+
+
         //case 1
         static void RegisterNewPassenger()
         {
