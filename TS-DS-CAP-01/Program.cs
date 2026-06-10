@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq; // LINQ
 using System.IO;   // Files
+using System.Linq; // LINQ
 
 namespace TS_DS_CAP_01
 {
@@ -81,10 +81,8 @@ namespace TS_DS_CAP_01
 
 
 
-        // File paths
-        static string activityLogFile = "activity_log.txt";
 
-        // NEW FILE: this file saves passenger name and ticket ID
+        //  this file saves passenger name and ticket ID
         static string passengerFile = "passengers.txt";
 
 
@@ -178,6 +176,10 @@ namespace TS_DS_CAP_01
 
             //--------------------------------------------------
             // NEW CODE USING LINQ Any()
+
+            //For each passenger name p, remove spaces, change it to lowercase, and compare it with the new name.
+            //So this  asks:
+            //Is there any passenger name already equal to the new name?
             bool nameExists = passengerNames.Any(p => p.Trim().ToLower() == name.ToLower());
 
             if (nameExists)
