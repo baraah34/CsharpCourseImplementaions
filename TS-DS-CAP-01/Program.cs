@@ -674,42 +674,54 @@
                 }
             }
         }
-
+        // This function moves all passengers from checkedInQueue to boardingStack.
+        // Queue = First In First Out.
+        // Stack = Last In First Out.
+        // the last passenger moved into the stack will board first.
         static void LoadBoardingStack()
         {
-            // If stack has data and queue is empty, it means already loaded
+            // If queue is empty but stack has passengers,
+            // this means the stack was already loaded before.
             if (checkedInQueue.Count == 0 && boardingStack.Count > 0)
             {
                 Console.WriteLine("Warning: Boarding stack is already loaded.");
                 return;
             }
-
+            // If no passengers checked in, there is nothing to load
             if (checkedInQueue.Count == 0)
             {
                 Console.WriteLine("Check-in queue is empty. Nothing to load.");
                 return;
             }
 
-            int count = 0;
+            int count = 0;// Count how many passengers were loaded
 
             // Move all passengers from queue to stack
             while (checkedInQueue.Count > 0)
             {
-                string passenger = checkedInQueue.Dequeue();
-                boardingStack.Push(passenger);
-                count++;
+                string passenger = checkedInQueue.Dequeue();// Remove passenger from front of queue
+                boardingStack.Push(passenger);// Add passenger to top of stack
+                count++;// Increase
             }
 
             Console.WriteLine(count + " passengers loaded into boarding stack.");
         }
+
+        // This function generates seats automatically.
+        // Example: 10A, 10B, 10C, 10D, 10E, 10F, then 11A.
         static string GenerateNextSeat()
         {
+            // Convert seatNumber to a letter.
+            // If seatNumber = 0, seatLetter = A.
             char seatLetter = (char)('A' + seatNumber);
 
+            // Combine row number and seat letter.
             string seat = seatRow.ToString() + seatLetter;
 
             seatNumber++;
 
+            // If seatNumber reaches 6  that means A to F are finished.
+            // Then go back to A and move to the next row.
             if (seatNumber == 6)
             {
                 seatNumber = 0;
@@ -724,6 +736,9 @@
 
             return seat;
         }
+        // This function boards the next passenger.
+        // It removes one passenger from the top of the stack
+        // and gives them an automatic seat.
         static void BoardNextPassenger()
         {
             if (boardingStack.Count == 0)
@@ -738,7 +753,9 @@
             // Generate automatic seat
             string seat = GenerateNextSeat();
 
-            // Add seat to dictionary
+            // Store the passenger and seat in passengerSeatMap dictionary.
+            // Key = passenger name
+            // Value = seat
             if (passengerSeatMap.ContainsKey(passenger))
             {
                 passengerSeatMap[passenger] = seat;
@@ -773,6 +790,8 @@
             }
         }
 
+        // This function displays all passengers who already boarded.
+        // It reads from passengerSeatMap dictionary.
         static void ViewBoardingLog()
         {
             Console.WriteLine("===== Boarding Log =====");
