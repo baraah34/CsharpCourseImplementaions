@@ -762,16 +762,32 @@ namespace TS_DS_CAP_01
             }
             else
             {
-                int position = 1;
+                //int position = 1;
 
-                // foreach displays queue without removing items
-                foreach (string passenger in checkedInQueue)
+                //// foreach displays queue without removing items
+                //foreach (string passenger in checkedInQueue)
+                //{
+                //    Console.WriteLine(position + ". " + passenger);
+                //    position++;
+                //}
+
+                //-------------------------------------------------------------
+                // NEW CODE USING LINQ Select()
+                var queueList = checkedInQueue
+                    .Select((passenger, index) => new
+                    {
+                        Position = index + 1,
+                        Name = passenger
+                    })
+                    .ToList();
+
+                foreach (var passenger in queueList)
                 {
-                    Console.WriteLine(position + ". " + passenger);
-                    position++;
+                    Console.WriteLine(passenger.Position + ". " + passenger.Name);
                 }
-            }
-
+            
+        }
+            //---------------------------------------------------------------
             Console.WriteLine("Waitlist count: " + waitlistQueue.Count);
         }
 
