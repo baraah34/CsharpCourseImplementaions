@@ -143,26 +143,9 @@ namespace TS_DS_CAP_01
             }
         }
 
+    
+
         // ============================================================
-        // file function: Write activity log
-        // i use error handling
-        static void WriteActivityLog(string message)
-        {
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(activityLogFile, true))
-                {
-                    writer.WriteLine(DateTime.Now + " - " + message);
-                }
-            }
-            catch
-            {
-                Console.WriteLine("Error: Could not write to activity log file.");
-            }
-        }
-
-       
-
         //case 1
         static void RegisterNewPassenger()
         {
@@ -220,7 +203,7 @@ namespace TS_DS_CAP_01
             // Save passenger details in passengers.txt
             SavePassengerToFile(name, newTicket);
 
-            WriteActivityLog("New passenger registered: " + name + " | Ticket: " + newTicket);
+            //WriteActivityLog("New passenger registered: " + name + " | Ticket: " + newTicket);
 
             Console.WriteLine("Passenger registered successfully.");
             Console.WriteLine("Passenger Name: " + name);
@@ -382,7 +365,6 @@ namespace TS_DS_CAP_01
             // Value is flight|date
             bookingRecord.Add(ticket, selectedFlight + "|" + selectedDate);
 
-            WriteActivityLog("Booking created for ticket " + ticket + " | Flight: " + selectedFlight + " | Date: " + selectedDate);
 
             Console.WriteLine("\nBooking confirmed successfully.");
             Console.WriteLine("Passenger Name: " + passengerNames[index]);
@@ -614,7 +596,6 @@ namespace TS_DS_CAP_01
 
             bookingRecord[ticket] = newFlight + "|" + newDate;
 
-            WriteActivityLog("Booking updated for ticket " + ticket + " from " + oldFlight + "|" + oldDate + " to " + newFlight + "|" + newDate);
 
             Console.WriteLine("\nBooking updated successfully.");
             Console.WriteLine("Old Flight: " + oldFlight + " | Old Date: " + oldDate);
@@ -655,7 +636,6 @@ namespace TS_DS_CAP_01
 
             bookingRecord.Remove(ticket);
 
-            WriteActivityLog("Booking cancelled for ticket " + ticket + " | Passenger: " + passengerName);
 
             Console.WriteLine("Booking cancelled successfully.");
             Console.WriteLine("Passenger Name: " + passengerName);
@@ -840,7 +820,6 @@ namespace TS_DS_CAP_01
             // Remove first passenger from queue
             string processedPassenger = checkedInQueue.Dequeue();
 
-            WriteActivityLog("Processed passenger from check-in queue: " + processedPassenger);
 
             Console.WriteLine("Processed passenger: " + processedPassenger);
 
@@ -850,7 +829,6 @@ namespace TS_DS_CAP_01
                 string movedPassenger = waitlistQueue.Dequeue();
                 checkedInQueue.Enqueue(movedPassenger);
 
-                WriteActivityLog("Moved passenger from waitlist to check-in queue: " + movedPassenger);
 
                 Console.WriteLine("Moved from waitlist to check-in queue: " + movedPassenger);
             }
@@ -960,7 +938,6 @@ namespace TS_DS_CAP_01
                 count++;// Increase
             }
 
-            WriteActivityLog(count + " passengers loaded into boarding stack.");
 
             Console.WriteLine(count + " passengers loaded into boarding stack.");
         }
@@ -1024,7 +1001,6 @@ namespace TS_DS_CAP_01
                 passengerSeatMap.Add(passenger, seat);
             }
 
-            WriteActivityLog("Passenger boarded: " + passenger + " | Seat: " + seat);
 
             Console.WriteLine("Passenger boarded successfully.");
             Console.WriteLine("Passenger Name: " + passenger);
