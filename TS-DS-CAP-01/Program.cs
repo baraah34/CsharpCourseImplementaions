@@ -155,6 +155,7 @@ namespace TS_DS_CAP_01
             //    }
             //}
 
+            //--------------------------------------------------
             // NEW CODE USING LINQ Any()
             bool nameExists = passengerNames.Any(p => p.Trim().ToLower() == name.ToLower());
 
@@ -163,7 +164,7 @@ namespace TS_DS_CAP_01
                 Console.WriteLine("Error: Passenger name already exists.");
                 return;
             }
-
+            //-----------------------------------------------------
 
             // Generate next ticket number
             int nextNumber = passengerNames.Count + 1;
@@ -270,6 +271,7 @@ namespace TS_DS_CAP_01
             // Console.WriteLine("Select flight number: ");
             //int flightChoice = int.Parse(Console.ReadLine());
 
+            //----------------------------------------------------------
             // NEW CODE USING TRY/CATCH ERROR HANDLING
             int flightChoice;
 
@@ -283,6 +285,7 @@ namespace TS_DS_CAP_01
                 Console.WriteLine("Invalid input. Please enter a number.");
                 return;
             }
+            //---------------------------------------------------------------
 
             // Validate flight choice
             //if user choice less than 1 and user choice bigger than avalibale flight number 
@@ -304,8 +307,26 @@ namespace TS_DS_CAP_01
                 Console.WriteLine((i + 1) + ". " + availableDates[i]);
             }
 
-            Console.WriteLine("Select  date: ");
-            int dateChoice = int.Parse(Console.ReadLine());
+            // Console.WriteLine("Select  date: ");
+            //int dateChoice = int.Parse(Console.ReadLine());
+
+            //----------------------------------------------------------
+            // NEW CODE USING TRY/CATCH ERROR HANDLING
+            int dateChoice;
+
+            try
+            {
+                Console.Write("Select date: ");
+                dateChoice = int.Parse(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input. Please enter a number.");
+                return;
+            }
+            //-----------------------------------------------------------------
+
+
 
             // Validate date choice
             if (dateChoice < 1 || dateChoice > availableDates.Count)
@@ -321,6 +342,10 @@ namespace TS_DS_CAP_01
             // Key is ticket
             // Value is flight|date
             bookingRecord.Add(ticket, selectedFlight + "|" + selectedDate);
+
+
+            WriteActivityLog("Booking created for ticket " + ticket + " | Flight: " + selectedFlight + " | Date: " + selectedDate);
+
 
             Console.WriteLine("\nBooking confirmed successfully.");
             Console.WriteLine("Passenger Name: " + passengerNames[index]);
@@ -435,9 +460,25 @@ namespace TS_DS_CAP_01
             Console.WriteLine("3. Change both");
             Console.WriteLine("0. Cancel update");
 
-            Console.Write("Choose update option:");
-            int choice = int.Parse(Console.ReadLine());
-            
+            // Console.Write("Choose update option:");
+            //int choice = int.Parse(Console.ReadLine());
+
+
+            //------------------------------------------------------------------
+            // NEW CODE USING TRY/CATCH ERROR HANDLING
+            int choice;
+
+            try
+            {
+                Console.Write("Choose update option: ");
+                choice = int.Parse(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input. Please enter a number.");
+                return;
+            }
+            //----------------------------------------------------------------------------
 
             if (choice == 0)
             {
