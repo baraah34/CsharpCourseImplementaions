@@ -781,33 +781,17 @@ namespace TS_DS_CAP_01
             }
             else
             {
-                //int position = 1;
+                int position = 1;
 
-                //// foreach displays queue without removing items
-                //foreach (string passenger in checkedInQueue)
-                //{
-                //    Console.WriteLine(position + ". " + passenger);
-                //    position++;
-                //}
-
-                //-------------------------------------------------------------
-                // NEW CODE USING LINQ Select()
-                var queueList = checkedInQueue
-                    .Select((passenger, index) => new
-                    {
-                        Position = index + 1,
-                        Name = passenger
-                    })
-                    .ToList();
-
-                foreach (var passenger in queueList)
+                // foreach displays queue without removing items
+                foreach (string passenger in checkedInQueue)
                 {
-                    Console.WriteLine(passenger.Position + ". " + passenger.Name);
+                    Console.WriteLine(position + ". " + passenger);
+                    position++;
                 }
-            }
 
-            //---------------------------------------------------------------
-            Console.WriteLine("Waitlist count: " + waitlistQueue.Count);
+                Console.WriteLine("Waitlist count: " + waitlistQueue.Count);
+            }
         }
 
         static void ProcessNextPassenger()
@@ -1018,14 +1002,19 @@ namespace TS_DS_CAP_01
                 return;
             }
 
+            //int position = 1;
+
+            //// foreach displays stack without removing items
+            //foreach (string passenger in boardingStack)
+            //{
+            //    Console.WriteLine(position + ". " + passenger);
+            //    position++;
+            //}
+
+             //LINQ 
             int position = 1;
 
-            // foreach displays stack without removing items
-            foreach (string passenger in boardingStack)
-            {
-                Console.WriteLine(position + ". " + passenger);
-                position++;
-            }
+            boardingStack.Where(passenger => passenger.Length > 0).ToList();
         }
 
         // This function displays all passengers who already boarded.
