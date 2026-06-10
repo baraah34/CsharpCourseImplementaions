@@ -539,9 +539,26 @@ namespace TS_DS_CAP_01
                 {
                     Console.WriteLine((i + 1) + ". " + availableDates[i]);
                 }
-                Console.Write("Select new date: ");
-                int dateChoice = int.Parse(Console.ReadLine());
-                
+
+
+                //Console.Write("Select new date: ");
+                // int dateChoice = int.Parse(Console.ReadLine());
+
+                //--------------------------------------------------------
+                // NEW CODE USING TRY/CATCH ERROR HANDLING
+                int dateChoice;
+
+                try
+                {
+                    Console.Write("Select new date: ");
+                    dateChoice = int.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    return;
+                }
+                  //---------------------------------------------------------------
 
                 if (dateChoice < 1 || dateChoice > availableDates.Count)
                 {
