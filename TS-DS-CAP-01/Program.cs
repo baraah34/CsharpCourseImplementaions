@@ -501,9 +501,25 @@ namespace TS_DS_CAP_01
                 {
                     Console.WriteLine((i + 1) + ". " + flightNumbers[i]);
                 }
-                Console.Write("Select new flight:");
-                int flightChoice = int.Parse(Console.ReadLine());
-               
+
+                // Console.Write("Select new flight:");
+                // int flightChoice = int.Parse(Console.ReadLine());
+
+                //----------------------------------------------------------------
+                // NEW CODE USING TRY/CATCH ERROR HANDLING
+                int flightChoice;
+
+                try
+                {
+                    Console.Write("Select new flight: ");
+                    flightChoice = int.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    return;
+                }
+                //-----------------------------------------------------------------------
 
                 if (flightChoice < 1 || flightChoice > flightNumbers.Length)
                 {
