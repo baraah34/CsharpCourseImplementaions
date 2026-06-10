@@ -571,6 +571,9 @@ namespace TS_DS_CAP_01
 
             bookingRecord[ticket] = newFlight + "|" + newDate;
 
+            WriteActivityLog("Booking updated for ticket " + ticket + " from " + oldFlight + "|" + oldDate + " to " + newFlight + "|" + newDate);
+
+
             Console.WriteLine("\nBooking updated successfully.");
             Console.WriteLine("Old Flight: " + oldFlight + " | Old Date: " + oldDate);
             Console.WriteLine("New Flight: " + newFlight + " | New Date: " + newDate);
@@ -604,11 +607,15 @@ namespace TS_DS_CAP_01
                 return;
             }
 
+
             string passengerName = passengerNames[index];
 
             string removedBooking = bookingRecord[ticket];
 
             bookingRecord.Remove(ticket);
+
+            WriteActivityLog("Booking cancelled for ticket " + ticket + " | Passenger: " + passengerName);
+
 
             Console.WriteLine("Booking cancelled successfully.");
             Console.WriteLine("Passenger Name: " + passengerName);
@@ -634,9 +641,26 @@ namespace TS_DS_CAP_01
                 Console.WriteLine("3. Process next passenger");
                 Console.WriteLine("0. Back");
 
-                Console.Write("Enter your choice: ");
-                int choice = int.Parse(Console.ReadLine());
-                
+                //Console.Write("Enter your choice: ");
+                // int choice = int.Parse(Console.ReadLine());
+
+                //-----------------------------------------------------------
+                // NEW CODE USING TRY/CATCH ERROR HANDLING
+                int choice;
+
+                try
+                {
+                    Console.Write("Enter your choice: ");
+                    choice = int.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    continue;
+                }
+                //----------------------------------------------------------------
 
                 switch (choice)
                 {
