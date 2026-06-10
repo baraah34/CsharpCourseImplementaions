@@ -177,6 +177,9 @@ namespace TS_DS_CAP_01
             // Add ticket to ticket list
             ticketNumbers.Add(newTicket);
 
+            WriteActivityLog("New passenger registered: " + name + " | Ticket: " + newTicket);
+
+
             Console.WriteLine("Passenger registered successfully.");
             Console.WriteLine("Passenger Name: " + name);
             Console.WriteLine("Ticket ID: " + newTicket);
