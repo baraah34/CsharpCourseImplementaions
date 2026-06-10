@@ -77,6 +77,10 @@ namespace TS_DS_CAP_01
         // 0 = A, 1 = B, 2 = C, 3 = D, 4 = E, 5 = F
         static int seatNumber = 0;
 
+        // File paths
+        static string activityLogFile = "activity_log.txt";
+        static string boardingLogFile = "boarding_log.txt";
+
         //==================================================================================
         //case 1
         static void RegisterNewPassenger()
