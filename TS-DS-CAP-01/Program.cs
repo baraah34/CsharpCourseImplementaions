@@ -146,14 +146,24 @@ namespace TS_DS_CAP_01
             }
 
             // Check duplicate name
-            for (int i = 0; i < passengerNames.Count; i++)
+            //for (int i = 0; i < passengerNames.Count; i++)
+            //{
+            //    if (passengerNames[i].ToLower() == name.ToLower())
+            //    {
+            //        Console.WriteLine("Error: Passenger name already exists.");
+            //        return;
+            //    }
+            //}
+
+            // NEW CODE USING LINQ Any()
+            bool nameExists = passengerNames.Any(p => p.Trim().ToLower() == name.ToLower());
+
+            if (nameExists)
             {
-                if (passengerNames[i].ToLower() == name.ToLower())
-                {
-                    Console.WriteLine("Error: Passenger name already exists.");
-                    return;
-                }
+                Console.WriteLine("Error: Passenger name already exists.");
+                return;
             }
+
 
             // Generate next ticket number
             int nextNumber = passengerNames.Count + 1;
