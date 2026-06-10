@@ -99,7 +99,32 @@ namespace TS_DS_CAP_01
             }
         }
 
+        // ============================================================
+        // file function : View activity log
+        
+        static void ViewActivityLogFile()
+        {
+            Console.WriteLine("===== Activity Log File =====");
 
+            try
+            {
+                if (!File.Exists(activityLogFile))
+                {
+                    Console.WriteLine("No activity log file found.");
+                    return;
+                }
+
+                using (StreamReader reader = new StreamReader(activityLogFile))
+                {
+                    string content = reader.ReadToEnd();
+                    Console.WriteLine(content);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error: Could not read activity log file.");
+            }
+        }
         //case 1
         static void RegisterNewPassenger()
         {
