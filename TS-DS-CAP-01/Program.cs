@@ -802,6 +802,9 @@ namespace TS_DS_CAP_01
             // Remove first passenger from queue
             string processedPassenger = checkedInQueue.Dequeue();
 
+            WriteActivityLog("Processed passenger from check-in queue: " + processedPassenger);
+
+
             Console.WriteLine("Processed passenger: " + processedPassenger);
 
             // If waitlist has passengers, move first waitlist passenger to queue
@@ -809,6 +812,9 @@ namespace TS_DS_CAP_01
             {
                 string movedPassenger = waitlistQueue.Dequeue();
                 checkedInQueue.Enqueue(movedPassenger);
+
+                WriteActivityLog("Moved passenger from waitlist to check-in queue: " + movedPassenger);
+
 
                 Console.WriteLine("Moved from waitlist to check-in queue: " + movedPassenger);
             }
@@ -830,9 +836,25 @@ namespace TS_DS_CAP_01
                 Console.WriteLine("4. View boarding log");
                 Console.WriteLine("0. Back");
 
-                Console.Write("Enter your choice: ");
-                int choice = int.Parse(Console.ReadLine());
+                //Console.Write("Enter your choice: ");
+                //int choice = int.Parse(Console.ReadLine());
+                //----------------------------------------------------------
+                // NEW CODE USING TRY/CATCH ERROR HANDLING
+                int choice;
 
+                try
+                {
+                    Console.Write("Enter your choice: ");
+                    choice = int.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    continue;
+                }
+                //-------------------------------------------------------------------- 
                 switch (choice)
                 {
                     case 1:
