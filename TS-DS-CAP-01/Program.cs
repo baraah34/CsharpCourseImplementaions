@@ -16,6 +16,7 @@ namespace TS_DS_CAP_01
             "Hidaya Nasser ",
             "Hafisa A "
         };
+
         // List of ticket numbers
         // Each ticket matches the passenger with the same index
         // Example: Baraah Said is index 0, so her ticket is TKT-001 index 0
@@ -38,6 +39,7 @@ namespace TS_DS_CAP_01
             "OA105",
             "OA106"
         };
+
         // List of available dates
         static List<string> availableDates = new List<string>()
         {
@@ -56,7 +58,6 @@ namespace TS_DS_CAP_01
         // List to store cancelled tickets
         static List<string> cancelledTickets = new List<string>();
 
-        
         // Passengers who have checked in, awaiting boarding
         static Queue<string> checkedInQueue = new Queue<string>();
 
@@ -64,7 +65,7 @@ namespace TS_DS_CAP_01
         static Stack<string> boardingStack = new Stack<string>();
 
         // Dictionary to store passenger seats
-        //  Key = passengerName, Value = assigned seat (e.g. '14A')
+        // Key = passengerName, Value = assigned seat (e.g. '14A')
         static Dictionary<string, string> passengerSeatMap = new Dictionary<string, string>();
 
         // Queue for waitlist passengers
@@ -77,9 +78,70 @@ namespace TS_DS_CAP_01
         // 0 = A, 1 = B, 2 = C, 3 = D, 4 = E, 5 = F
         static int seatNumber = 0;
 
+
+
+
         // File paths
         static string activityLogFile = "activity_log.txt";
-        static string boardingLogFile = "boarding_log.txt";
+
+        // NEW FILE: this file saves passenger name and ticket ID
+        static string passengerFile = "passengers.txt";
+
+
+
+        // ============================================================
+        // file function: Save passenger details
+        // append true means it will add new passenger without deleting old data
+        static void SavePassengerToFile(string name, string ticket)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(passengerFile, true))
+                {
+                    writer.WriteLine(name + "|" + ticket);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error: Could not save passenger to file.");
+            }
+        }
+
+        // ===========================================================
+        // file function: Load passenger details
+        // this reads passengers.txt when the program starts
+        static void LoadPassengersFromFile()
+        {
+            try
+            {
+                if (!File.Exists(passengerFile))
+                {
+                    return;
+                }
+
+             
+
+                using (StreamReader reader = new StreamReader(passengerFile))
+                {
+                    string line;
+
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] parts = line.Split('|');
+
+                        if (parts.Length == 2)
+                        {
+                            passengerNames.Add(parts[0]);
+                            ticketNumbers.Add(parts[1]);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Error: Could not load passengers from file.");
+            }
+        }
 
         // ============================================================
         // file function: Write activity log
@@ -99,50 +161,26 @@ namespace TS_DS_CAP_01
             }
         }
 
-        // ============================================================
-        // file function : View activity log
-        
-        static void ViewActivityLogFile()
-        {
-            Console.WriteLine("===== Activity Log File =====");
+       
 
-            try
-            {
-                if (!File.Exists(activityLogFile))
-                {
-                    Console.WriteLine("No activity log file found.");
-                    return;
-                }
-
-                using (StreamReader reader = new StreamReader(activityLogFile))
-                {
-                    string content = reader.ReadToEnd();
-                    Console.WriteLine(content);
-                }
-            }
-            catch
-            {
-                Console.WriteLine("Error: Could not read activity log file.");
-            }
-        }
         //case 1
         static void RegisterNewPassenger()
         {
             Console.WriteLine(" Register New Passenger ");
 
             Console.Write("Enter passenger full name: ");
-            string name = Console.ReadLine(); 
+            string name = Console.ReadLine();
 
             if (name != null)
             {
-                name = name.Trim(); 
+                name = name.Trim();
             }
 
             // Check if name is empty
             if (name == null || name.Length == 0)
             {
                 Console.WriteLine("Error: Passenger name cannot be empty.");
-                return; 
+                return;
             }
 
             // Check duplicate name
@@ -178,16 +216,19 @@ namespace TS_DS_CAP_01
             // Add ticket to ticket list
             ticketNumbers.Add(newTicket);
 
-            WriteActivityLog("New passenger registered: " + name + " | Ticket: " + newTicket);
+            // NEW FILE CODE:
+            // Save passenger details in passengers.txt
+            SavePassengerToFile(name, newTicket);
 
+            WriteActivityLog("New passenger registered: " + name + " | Ticket: " + newTicket);
 
             Console.WriteLine("Passenger registered successfully.");
             Console.WriteLine("Passenger Name: " + name);
             Console.WriteLine("Ticket ID: " + newTicket);
         }
+
         //=============================================================================================
         // CASE 02
-
         static void ViewAllPassengers()
         {
             Console.WriteLine("===== View All Passengers =====");
@@ -220,8 +261,9 @@ namespace TS_DS_CAP_01
 
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine("Total passengers: " + passengerNames.Count);
+        }
 
-        }//============================================================================================
+        //============================================================================================
         //case 3
         static void BookFlightTicket()
         {
@@ -232,7 +274,7 @@ namespace TS_DS_CAP_01
 
             if (ticket != null)
             {
-                ticket = ticket.Trim().ToUpper(); 
+                ticket = ticket.Trim().ToUpper();
             }
 
             // Find ticket index
@@ -266,7 +308,6 @@ namespace TS_DS_CAP_01
             {
                 Console.WriteLine((i + 1) + ". " + flightNumbers[i]);
             }
-
 
             // Console.WriteLine("Select flight number: ");
             //int flightChoice = int.Parse(Console.ReadLine());
@@ -326,8 +367,6 @@ namespace TS_DS_CAP_01
             }
             //-----------------------------------------------------------------
 
-
-
             // Validate date choice
             if (dateChoice < 1 || dateChoice > availableDates.Count)
             {
@@ -343,9 +382,7 @@ namespace TS_DS_CAP_01
             // Value is flight|date
             bookingRecord.Add(ticket, selectedFlight + "|" + selectedDate);
 
-
             WriteActivityLog("Booking created for ticket " + ticket + " | Flight: " + selectedFlight + " | Date: " + selectedDate);
-
 
             Console.WriteLine("\nBooking confirmed successfully.");
             Console.WriteLine("Passenger Name: " + passengerNames[index]);
@@ -353,6 +390,7 @@ namespace TS_DS_CAP_01
             Console.WriteLine("Flight: " + selectedFlight);
             Console.WriteLine("Date: " + selectedDate);
         }
+
         //=============================================================================
         //case 4
         static void ViewBookingDetails()
@@ -397,7 +435,6 @@ namespace TS_DS_CAP_01
             //flight = "OA101"
             //date = "12-MAR-2026"
             //bookingValue = "OA101|12-MAR-2026"
-
             string[] parts = bookingValue.Split('|');
 
             string flight = parts[0];
@@ -412,6 +449,7 @@ namespace TS_DS_CAP_01
             Console.WriteLine("Date: " + date);
             Console.WriteLine("=================================");
         }
+
         //======================================================================
         //case 5
         static void UpdateBooking()
@@ -439,6 +477,13 @@ namespace TS_DS_CAP_01
                 Console.WriteLine("Error: Cancelled tickets cannot be updated.");
                 return;
             }
+
+            if (!bookingRecord.ContainsKey(ticket))
+            {
+                Console.WriteLine("Error: This ticket has no booking to update.");
+                return;
+            }
+
             // Get old booking value
             string oldValue = bookingRecord[ticket];
 
@@ -462,7 +507,6 @@ namespace TS_DS_CAP_01
 
             // Console.Write("Choose update option:");
             //int choice = int.Parse(Console.ReadLine());
-
 
             //------------------------------------------------------------------
             // NEW CODE USING TRY/CATCH ERROR HANDLING
@@ -540,7 +584,6 @@ namespace TS_DS_CAP_01
                     Console.WriteLine((i + 1) + ". " + availableDates[i]);
                 }
 
-
                 //Console.Write("Select new date: ");
                 // int dateChoice = int.Parse(Console.ReadLine());
 
@@ -558,7 +601,7 @@ namespace TS_DS_CAP_01
                     Console.WriteLine("Invalid input. Please enter a number.");
                     return;
                 }
-                  //---------------------------------------------------------------
+                //---------------------------------------------------------------
 
                 if (dateChoice < 1 || dateChoice > availableDates.Count)
                 {
@@ -573,14 +616,13 @@ namespace TS_DS_CAP_01
 
             WriteActivityLog("Booking updated for ticket " + ticket + " from " + oldFlight + "|" + oldDate + " to " + newFlight + "|" + newDate);
 
-
             Console.WriteLine("\nBooking updated successfully.");
             Console.WriteLine("Old Flight: " + oldFlight + " | Old Date: " + oldDate);
             Console.WriteLine("New Flight: " + newFlight + " | New Date: " + newDate);
         }
+
         //===========================================================================================================
         //case 6 
-
         static void CancelTicket()
         {
             Console.WriteLine("===== Cancel a Booking =====");
@@ -607,7 +649,6 @@ namespace TS_DS_CAP_01
                 return;
             }
 
-
             string passengerName = passengerNames[index];
 
             string removedBooking = bookingRecord[ticket];
@@ -616,17 +657,14 @@ namespace TS_DS_CAP_01
 
             WriteActivityLog("Booking cancelled for ticket " + ticket + " | Passenger: " + passengerName);
 
-
             Console.WriteLine("Booking cancelled successfully.");
             Console.WriteLine("Passenger Name: " + passengerName);
             Console.WriteLine("Ticket ID: " + ticket);
             Console.WriteLine("Removed Booking: " + removedBooking);
-
-           
         }
+
         //============================================================================
         //case  7
-
         static void PassengerCheckIn()
         {
             bool checkInMenu = true;
@@ -785,8 +823,8 @@ namespace TS_DS_CAP_01
                 {
                     Console.WriteLine(passenger.Position + ". " + passenger.Name);
                 }
-            
-        }
+            }
+
             //---------------------------------------------------------------
             Console.WriteLine("Waitlist count: " + waitlistQueue.Count);
         }
@@ -804,7 +842,6 @@ namespace TS_DS_CAP_01
 
             WriteActivityLog("Processed passenger from check-in queue: " + processedPassenger);
 
-
             Console.WriteLine("Processed passenger: " + processedPassenger);
 
             // If waitlist has passengers, move first waitlist passenger to queue
@@ -815,10 +852,10 @@ namespace TS_DS_CAP_01
 
                 WriteActivityLog("Moved passenger from waitlist to check-in queue: " + movedPassenger);
 
-
                 Console.WriteLine("Moved from waitlist to check-in queue: " + movedPassenger);
             }
         }
+
         //==================================================================================================
         //CASE 8 
         static void BoardPassengers()
@@ -838,6 +875,7 @@ namespace TS_DS_CAP_01
 
                 //Console.Write("Enter your choice: ");
                 //int choice = int.Parse(Console.ReadLine());
+
                 //----------------------------------------------------------
                 // NEW CODE USING TRY/CATCH ERROR HANDLING
                 int choice;
@@ -855,6 +893,7 @@ namespace TS_DS_CAP_01
                     continue;
                 }
                 //-------------------------------------------------------------------- 
+
                 switch (choice)
                 {
                     case 1:
@@ -889,6 +928,7 @@ namespace TS_DS_CAP_01
                 }
             }
         }
+
         // This function moves all passengers from checkedInQueue to boardingStack.
         // Queue = First In First Out.
         // Stack = Last In First Out.
@@ -902,6 +942,7 @@ namespace TS_DS_CAP_01
                 Console.WriteLine("Warning: Boarding stack is already loaded.");
                 return;
             }
+
             // If no passengers checked in, there is nothing to load
             if (checkedInQueue.Count == 0)
             {
@@ -918,6 +959,8 @@ namespace TS_DS_CAP_01
                 boardingStack.Push(passenger);// Add passenger to top of stack
                 count++;// Increase
             }
+
+            WriteActivityLog(count + " passengers loaded into boarding stack.");
 
             Console.WriteLine(count + " passengers loaded into boarding stack.");
         }
@@ -951,6 +994,7 @@ namespace TS_DS_CAP_01
 
             return seat;
         }
+
         // This function boards the next passenger.
         // It removes one passenger from the top of the stack
         // and gives them an automatic seat.
@@ -979,6 +1023,8 @@ namespace TS_DS_CAP_01
             {
                 passengerSeatMap.Add(passenger, seat);
             }
+
+            WriteActivityLog("Passenger boarded: " + passenger + " | Seat: " + seat);
 
             Console.WriteLine("Passenger boarded successfully.");
             Console.WriteLine("Passenger Name: " + passenger);
@@ -1023,13 +1069,18 @@ namespace TS_DS_CAP_01
                 Console.WriteLine(entry.Key + " - Seat: " + entry.Value);
             }
         }
+
         static void Main(string[] args)
         {
-            bool mainMenu = true; //  main menu loop
+            // NEW FILE CODE:
+            // Load saved passengers when the program starts
+            LoadPassengersFromFile();
+
+            bool mainMenu = true; // main menu loop
 
             while (mainMenu)
             {
-                Console.Clear(); 
+                Console.Clear();
 
                 Console.WriteLine("========================================");
                 Console.WriteLine("SKY WINGS FLIGHT MANAGEMENT SYSTEM");
@@ -1051,7 +1102,6 @@ namespace TS_DS_CAP_01
                 int choice = int.Parse(Console.ReadLine());
 
                 Console.Clear();
-                
 
                 switch (choice)
                 {
